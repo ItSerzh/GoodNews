@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewsAnalizer.Core.DataTransferObjects\NewsAnalizer.Core.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\NewsAnalizer.Core.Interfaces.Services\NewsAnalizer.Core.Interfaces.Services.csproj" />
+    <ProjectReference Include="..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj" />
+  </ItemGroup>
+
+</Project>
