@@ -3,21 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer", "NewsAnalyzer.csproj", "{48787BA4-2CAF-41A8-854D-4A7EF5539E49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer", "NewsAnalyzer.csproj", "{48787BA4-2CAF-41A8-854D-4A7EF5539E49}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.DAL", "NewsAnalyzer.DAL", "{8B361688-D903-4609-9C5C-D01636E08592}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalizer.DAL.Core", "..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj", "{71A450BF-E54A-47D7-B51D-B1AC4D85CA6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.DAL.Core", "..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj", "{71A450BF-E54A-47D7-B51D-B1AC4D85CA6F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewaAnalizer.Core", "NewaAnalizer.Core", "{163C6AAD-ABD6-4826-A05A-86A3EC635CA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalizer.Core.Interfaces.Services", "..\NewsAnalizer.Core.Interfaces.Services\NewsAnalizer.Core.Interfaces.Services.csproj", "{500F508C-6AC6-4EC2-9F9E-DE1944FB0E3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Core.Services.Interfaces", "..\NewsAnalizer.Core.Interfaces.Services\NewsAnalizer.Core.Services.Interfaces.csproj", "{500F508C-6AC6-4EC2-9F9E-DE1944FB0E3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalizer.Core.DataTransferObjects", "..\NewsAnalizer.Core.DataTransferObjects\NewsAnalizer.Core.DataTransferObjects.csproj", "{CB89A32B-0D86-4946-8F0B-2BBCFCE85DFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Core.DataTransferObjects", "..\NewsAnalizer.Core.DataTransferObjects\NewsAnalizer.Core.DataTransferObjects.csproj", "{CB89A32B-0D86-4946-8F0B-2BBCFCE85DFC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9D430356-1278-4987-A79C-418FA11741D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalizer.Services.Implementation", "..\NewsAnalizer.Services.Implementation\NewsAnalizer.Services.Implementation.csproj", "{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Services.Implementation", "..\NewsAnalizer.Services.Implementation\NewsAnalizer.Services.Implementation.csproj", "{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalizer.Dal.Repositories.Implementation", "..\NewsAnalizer.Dal.Repositories\NewsAnalizer.Dal.Repositories.Implementation.csproj", "{C726680B-D2B3-42A7-9998-7ACF507AFD03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalizer.Dal.Repositories.Interfaces", "..\NewsAnalizer.Dal.Repositories.Interfaces\NewsAnalizer.Dal.Repositories.Interfaces.csproj", "{483D6127-F8A7-49F5-A60A-2EF164B3B46D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C726680B-D2B3-42A7-9998-7ACF507AFD03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C726680B-D2B3-42A7-9998-7ACF507AFD03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C726680B-D2B3-42A7-9998-7ACF507AFD03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C726680B-D2B3-42A7-9998-7ACF507AFD03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{483D6127-F8A7-49F5-A60A-2EF164B3B46D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483D6127-F8A7-49F5-A60A-2EF164B3B46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483D6127-F8A7-49F5-A60A-2EF164B3B46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483D6127-F8A7-49F5-A60A-2EF164B3B46D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +66,8 @@ Global
 		{500F508C-6AC6-4EC2-9F9E-DE1944FB0E3C} = {163C6AAD-ABD6-4826-A05A-86A3EC635CA2}
 		{CB89A32B-0D86-4946-8F0B-2BBCFCE85DFC} = {163C6AAD-ABD6-4826-A05A-86A3EC635CA2}
 		{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B} = {9D430356-1278-4987-A79C-418FA11741D6}
+		{C726680B-D2B3-42A7-9998-7ACF507AFD03} = {8B361688-D903-4609-9C5C-D01636E08592}
+		{483D6127-F8A7-49F5-A60A-2EF164B3B46D} = {8B361688-D903-4609-9C5C-D01636E08592}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC6EBC54-1FAF-4F2E-9FEC-F9D04C891AE6}

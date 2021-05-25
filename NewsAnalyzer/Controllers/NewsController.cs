@@ -1,25 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
+using System.Xml;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NewsAnalizer.Core.DataTransferObjects;
 using NewsAnalizer.Core.Interfaces.Services;
+using NewsAnalizer.Core.Services.Interfaces;
 using NewsAnalizer.DAL.Core;
 using NewsAnalizer.DAL.Core.Entities;
 using NewsAnalyzer.Models.ViewModels;
+using static NewsAnalizer.Services.Implementation.WebPageParse;
 
 namespace NewsAnalyzer.Controllers
 {
     public class NewsController : Controller
     {
         private readonly INewsService _newsService;
+        private readonly IRssSourceService _rssSourceService;
+        private readonly IWebPageParser _onlinerParser;
+        private readonly IWebPageParser _tutByParser;
 
-        public NewsController(INewsService newsService)
+        public NewsController(INewsService newsService, IRssSourceService rssSourceService,
+            ServiceResolver webPageParser)
         {
+            _rssSourceService = rssSourceService;
             _newsService = newsService;
+            _onlinerParser = webPageParser("Onliner");
+            _tutByParser = webPageParser("TutBy");
         }
 
         // GET: News
@@ -30,7 +41,7 @@ namespace NewsAnalyzer.Controllers
                 return NotFound();
             }
 
-            var news = (await _newsService.GetNewsBySourceId(rssSourceId)).ToList();
+            var news = (await _newsService.GetNewsBySourceId(rssSourceId));
             return View(news);
         }
 
@@ -43,7 +54,7 @@ namespace NewsAnalyzer.Controllers
             }
 
             var news = await _newsService.GetNewsWithRssSourceNameById(id);
-                
+
             var vewModel = new NewsWithRssSourceNameDto
             {
                 Id = news.Id,
@@ -57,6 +68,55 @@ namespace NewsAnalyzer.Controllers
             };
 
             return View(vewModel);
+        }
+
+
+        public IActionResult Aggregate()
+        {
+            //ViewData["RssSourceId"] = new SelectList(_newsService. RssSource, "Id", "Id");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Aggregate([Bind("Id,Title,Content,Url,Rating,NewsDate,DateCollect,RssSourceId")] NewsDto news)
+        {
+            try
+            {
+                var rssSources = (await _rssSourceService.GetRssSources());
+
+                var newsInfos = new List<NewsDto>();
+                foreach (var rssSource in rssSources)
+                {
+                    var newsList = await _newsService.GetNewsFromRssSource(rssSource);
+                    if(rssSource.Id == new Guid("E3512D7D-381A-4655-8B60-584C08D9254A"))
+                    {
+                        foreach (var newsDto in newsList)
+                        {
+                            var newsContent = await _onlinerParser.Parse(newsDto.Url);
+                            newsDto.Content = newsContent;
+                        }
+                    }
+                    else
+                    {
+                        foreach (var newsDto in newsList)
+                        {
+                            var newsContent = await _tutByParser.Parse(newsDto.Url);
+                            newsDto.Content = newsContent ?? "";
+                        }
+                    }
+                    newsInfos.AddRange(newsList);
+                }
+
+                await _newsService.AddRange(newsInfos);
+
+            }
+            catch (Exception e)
+            {
+                //log error
+                throw; 
+            }
+            return RedirectToAction(nameof(Index),(new Guid("E3512D7D-381A-4655-8B60-584C08D9254A")));
         }
 
         // GET: News/Create
@@ -144,7 +204,7 @@ namespace NewsAnalyzer.Controllers
             }
 
             var news = await _newsService.GetNewsById(id);
-                
+
             if (news == null)
             {
                 return NotFound();

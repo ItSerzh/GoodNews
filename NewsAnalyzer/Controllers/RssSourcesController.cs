@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NewsAnalizer.Core.Services.Interfaces;
+using NewsAnalizer.Dal.Repositories.Implementation;
 using NewsAnalizer.DAL.Core;
 using NewsAnalizer.DAL.Core.Entities;
 
@@ -12,17 +14,18 @@ namespace NewsAnalyzer.Controllers
 {
     public class RssSourcesController : Controller
     {
-        private readonly NewsAnalizerContext _context;
+        //private readonly NewsAnalizerContext _context;
+        private readonly IRssSourceService _rssService;
 
-        public RssSourcesController(NewsAnalizerContext context)
+        public RssSourcesController(IRssSourceService rssService)
         {
-            _context = context;
+            _rssService = rssService;
         }
 
         // GET: RssSources
         public async Task<IActionResult> Index()
         {
-            return View(await _context.RssSource.ToListAsync());
+            return View(await _rssService.GetRssSources());
         }
 
         // GET: RssSources/Details/5
@@ -33,8 +36,8 @@ namespace NewsAnalyzer.Controllers
                 return NotFound();
             }
 
-            var rssSource = await _context.RssSource
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var rssSource = await _rssService.GetRssSources(id);
+                
             if (rssSource == null)
             {
                 return NotFound();
@@ -49,106 +52,5 @@ namespace NewsAnalyzer.Controllers
             return View();
         }
 
-        // POST: RssSources/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Url")] RssSource rssSource)
-        {
-            if (ModelState.IsValid)
-            {
-                rssSource.Id = Guid.NewGuid();
-                _context.Add(rssSource);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(rssSource);
-        }
-
-        // GET: RssSources/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rssSource = await _context.RssSource.FindAsync(id);
-            if (rssSource == null)
-            {
-                return NotFound();
-            }
-            return View(rssSource);
-        }
-
-        // POST: RssSources/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Url")] RssSource rssSource)
-        {
-            if (id != rssSource.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(rssSource);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RssSourceExists(rssSource.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(rssSource);
-        }
-
-        // GET: RssSources/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rssSource = await _context.RssSource
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (rssSource == null)
-            {
-                return NotFound();
-            }
-
-            return View(rssSource);
-        }
-
-        // POST: RssSources/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var rssSource = await _context.RssSource.FindAsync(id);
-            _context.RssSource.Remove(rssSource);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool RssSourceExists(Guid id)
-        {
-            return _context.RssSource.Any(e => e.Id == id);
-        }
     }
 }

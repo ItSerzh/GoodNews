@@ -1,0 +1,26 @@
+﻿@model NewsAnalizer.Core.DataTransferObjects.NewsDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Aggregate News</h1>
+
+<h4>Are you sure you want to aggregate news? It can take a time...</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Aggregate">
+            <input type="submit" value="Aggregate" class="btn btn-danger" /> |
+            <a asp-action="Index">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

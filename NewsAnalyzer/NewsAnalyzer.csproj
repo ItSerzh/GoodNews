@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -19,11 +19,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NewsAnalizer.Core.DataTransferObjects\NewsAnalizer.Core.DataTransferObjects.csproj" />
     <ProjectReference Include="..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj" />
+    <ProjectReference Include="..\NewsAnalizer.Dal.Repositories\NewsAnalizer.Dal.Repositories.Implementation.csproj" />
     <ProjectReference Include="..\NewsAnalizer.Services.Implementation\NewsAnalizer.Services.Implementation.csproj" />
   </ItemGroup>
 
