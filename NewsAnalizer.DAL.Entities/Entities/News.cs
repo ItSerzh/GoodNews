@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NewsAnalizer.DAL.Core.Entities
 {
-    public class News
+    public class News : IBaseEntity
     {
         [Key]
         public Guid Id { get; set; }

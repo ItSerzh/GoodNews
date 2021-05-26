@@ -43,7 +43,7 @@ namespace NewsAnalyzer.Controllers
                 return NotFound();
             }
 
-            return View(rssSource);
+            return View(rssSource.FirstOrDefault());
         }
 
         // GET: RssSources/Create

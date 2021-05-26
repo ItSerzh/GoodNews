@@ -5,9 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.32" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NewsAnalizer.Core.DataTransferObjects\NewsAnalizer.Core.DataTransferObjects.csproj" />
-    <ProjectReference Include="..\NewsAnalizer.Core.Interfaces.Services\NewsAnalizer.Core.Interfaces.Services.csproj" />
+    <ProjectReference Include="..\NewsAnalizer.Core.Interfaces.Services\NewsAnalizer.Core.Services.Interfaces.csproj" />
     <ProjectReference Include="..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj" />
+    <ProjectReference Include="..\NewsAnalizer.Dal.Repositories.Interfaces\NewsAnalizer.Dal.Repositories.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

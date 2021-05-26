@@ -1,31 +1,58 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsAnalizer.Core.DataTransferObjects;
 using NewsAnalizer.Core.Interfaces.Services;
+using NewsAnalizer.Core.Services.Interfaces;
+using NewsAnalizer.Dal.Repositories.Interfaces;
 using NewsAnalizer.DAL.Core;
+using NewsAnalizer.DAL.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace NewsAnalizer.Services.Implementation
 {
     public class NewsService : INewsService
     {
-        private NewsAnalizerContext _db;
+        private readonly IRepository<News> _repository;
 
-        public NewsService(NewsAnalizerContext db)
+        public NewsService(IRepository<News> repository)
         {
-            _db = db;
+            _repository = repository;
         }
+
+        public NewsService()
+        {
+            
+        }
+
+        public Task<IEnumerable<NewsDto>> AggregateNews()
+        {
+            throw new NotImplementedException();
+        }
+
 
         public Task<NewsDto> AddNews(NewsDto newsDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<NewsDto>> AddRange(IEnumerable<NewsDto> newsDto)
+        public async Task<IEnumerable<NewsDto>> AddRange(IEnumerable<NewsDto> newsDto)
         {
-            throw new NotImplementedException();
+            var news = newsDto.Select(n => new News
+            {
+                Title = n.Title,
+                NewsDate = n.NewsDate,
+                Content = n.Content,
+                RssSourceId = n.RssSourceId,
+                Url = n.Url,
+            });
+            
+            //_repository.AddRange(news);
+            //await _db.SaveChangesAsync();
+            return newsDto;
         }
 
         public Task<int> Delete(NewsDto newsDto)
@@ -43,21 +70,83 @@ namespace NewsAnalizer.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<NewsDto>> FindNews()
+
+        public async Task<NewsDto> GetNewsById(Guid? id)
         {
-            throw new NotImplementedException();
+            var entity = await _repository.GetById(id.Value);
+            return new NewsDto
+            {
+                Id = entity.Id,
+                Title = entity.Title,
+                Content = entity.Content,
+                DateCollect = entity.DateCollect,
+                NewsDate = entity.NewsDate,
+                Rating = entity.Rating,
+                RssSourceId = entity.RssSourceId
+            };
         }
 
-        public Task<NewsDto> GetNewsById(Guid? id)
+        public async Task<IEnumerable<NewsWithRssSourceNameDto>> GetNewsBySourceId(Guid? id)
         {
-            throw new NotImplementedException();
+            var v = _repository.FindBy(n => true, n => n.RssSource)
+               .Where(n => n.RssSourceId.Equals(id.GetValueOrDefault()));
+            var result = await v   
+               .Select(n => new NewsWithRssSourceNameDto
+               {
+                   Id = n.Id,
+                   Title = n.Title,
+                   Content = n.Content,
+                   DateCollect = n.DateCollect,
+                   NewsDate = n.NewsDate,
+                   Rating = n.Rating,
+                   RssSourceId = n.RssSourceId,
+                   RssSourceName = n.RssSource.Name,
+                   Url = n.Url
+               }).ToListAsync();
+            return result;
         }
 
-        public async Task<IEnumerable<NewsDto>> GetNewsBySourceId(Guid? id)
+        public async Task<IEnumerable<NewsDto>> GetNewsFromRssSource(RssSourceDto rssSource)
         {
-            var news = await _db.News
-                .Where(n => n.RssSourceId == id)
-                .Select(n => new NewsDto
+            var newsList = new List<NewsDto>();
+            //using (var reader = XmlReader.Create(rssSource.Url))
+            //{
+            //    var feed = SyndicationFeed.Load(reader);
+
+            //    reader.Close();
+
+            //    if (feed.Items.Any())
+            //    {
+            //        var dbUrls = await _db.News
+            //            .Where(n => n.RssSourceId == rssSource.Id)
+            //            .Select(n => n.Url)
+            //            .ToListAsync();
+
+            //        foreach (var item in feed.Items)
+            //        {
+            //            if (!dbUrls.Contains(item.Id))
+            //            {
+            //                var newsDto = new NewsDto()
+            //                {
+            //                    Id = Guid.NewGuid(),
+            //                    RssSourceId = rssSource.Id,
+            //                    Url = item.Id,
+            //                    Title = item.Title.Text,
+            //                    Content = item.Summary.Text //item.Content.ToString()
+            //                };
+            //                newsList.Add(newsDto);
+            //            }
+            //        }
+            //    }
+            //}
+            return newsList;
+        }
+
+        public async Task<NewsWithRssSourceNameDto> GetNewsWithRssSourceNameById(Guid? id)
+        {
+            var result = await _repository.FindBy(n => true, n => n.RssSource)
+                .Where(n => n.Id.Equals(id.GetValueOrDefault()))
+                .Select(n => new NewsWithRssSourceNameDto
                 {
                     Id = n.Id,
                     Title = n.Title,
@@ -66,14 +155,8 @@ namespace NewsAnalizer.Services.Implementation
                     NewsDate = n.NewsDate,
                     Rating = n.Rating,
                     RssSourceId = n.RssSourceId
-                })
-                .ToListAsync();
-            return news;
-        }
-
-        public Task<NewsWithRssSourceNameDto> GetNewsWithRssSourceNameById(Guid? id)
-        {
-            throw new NotImplementedException();
+                }).FirstOrDefaultAsync();
+            return result;
         }
 
         public Task<int> Update(NewsDto newsDto)

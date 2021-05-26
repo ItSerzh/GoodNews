@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NewsAnalizer.DAL.Core.Entities
 {
-    public class RssSource
+    public class RssSource : IBaseEntity
     {
         public Guid Id { get; set; }
         

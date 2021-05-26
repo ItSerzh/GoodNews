@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NewsAnalizer.DAL.Core.Entities
 {
-    public class User
+    public class User : IBaseEntity
     {
         [Key]
         public Guid Id { get; set; }

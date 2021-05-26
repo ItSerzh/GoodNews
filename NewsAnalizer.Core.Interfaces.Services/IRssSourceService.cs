@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewsAnalizer.Core.Interfaces.Services
+namespace NewsAnalizer.Core.Services.Interfaces
 {
     public interface IRssSourceService
     {
@@ -14,5 +14,7 @@ namespace NewsAnalizer.Core.Interfaces.Services
         Task<IEnumerable<RssSourceDto>> AddRange(IEnumerable<RssSourceDto> rssSourceDto);
         Task<int> Edit(RssSourceDto rssSourceDto);
         Task<int> Delete(RssSourceDto rssSourceDto);
+
+        Task<IEnumerable<RssSourceDto>> GetRssSources(Guid? id = null);
     }
 }

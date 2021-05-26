@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NewsAnalizer.Core.Interfaces.Services
+namespace NewsAnalizer.Core.Services.Interfaces
 {
     public interface INewsService
     {
-        Task<IEnumerable<NewsDto>> FindNews();
+        Task<IEnumerable<NewsDto>> AggregateNews();
         
-        Task <IEnumerable<NewsDto>> GetNewsBySourceId(Guid? id);
+        Task <IEnumerable<NewsWithRssSourceNameDto>> GetNewsBySourceId(Guid? id);
+        Task<IEnumerable<NewsDto>> GetNewsFromRssSource(RssSourceDto rssSource);
         Task<NewsDto> GetNewsById(Guid? id);
         Task<NewsWithRssSourceNameDto> GetNewsWithRssSourceNameById(Guid? id);
         Task<int> AddNews(NewsDto newsDto);
