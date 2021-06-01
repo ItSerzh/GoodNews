@@ -35,12 +35,14 @@ namespace NewsAnalyzer
             services.AddDbContext<NewsAnalizerContext>(opt => 
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            
-            services.AddScoped<INewsService, NewsService>();
-            services.AddScoped<IRssSourceService, RssSourceService>();
-            
             services.AddTransient<IRepository<News>, NewsRepository>();
             services.AddTransient<IRepository<RssSource>, RssSourceRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<IRssSourceService, RssSourceService>();
+
+
+            
 
             //services.AddTransient<IWebPageParser, OnlinerParser>();
             RegisterWebPageParser(services);

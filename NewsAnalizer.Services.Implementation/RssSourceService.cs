@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsAnalizer.Core.DataTransferObjects;
 using NewsAnalizer.Core.Services.Interfaces;
+using NewsAnalizer.Dal.Repositories.Implementation;
 using NewsAnalizer.Dal.Repositories.Interfaces;
 using NewsAnalizer.DAL.Core;
 using NewsAnalizer.DAL.Core.Entities;
@@ -14,11 +15,11 @@ namespace NewsAnalizer.Services.Implementation
 {
     public class RssSourceService : IRssSourceService
     {
-        private IRepository<RssSource> _rssSourceRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public RssSourceService(IRepository<RssSource> rssSourceRepository)
+        public RssSourceService(IUnitOfWork unitOfWork)
         {
-            _rssSourceRepository = rssSourceRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public Task<IEnumerable<RssSourceDto>> AddRange(IEnumerable<RssSourceDto> rssSourceDto)
@@ -55,7 +56,7 @@ namespace NewsAnalizer.Services.Implementation
         {
             if(id == null)
             {
-                return await _rssSourceRepository.FindBy(s => true)
+                return await _unitOfWork.RssSource.FindBy(s => true)
                     .Select(rs => new RssSourceDto
                     {
                         Id = rs.Id,
@@ -67,7 +68,7 @@ namespace NewsAnalizer.Services.Implementation
             }
             else
             {
-                return await _rssSourceRepository.FindBy(s => s.Id == id.Value)
+                return await _unitOfWork.RssSource.FindBy(s => s.Id == id.Value)
                     .Select(rs => new RssSourceDto
                     {
                         Id = rs.Id,

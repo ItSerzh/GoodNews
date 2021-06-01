@@ -38,6 +38,12 @@ namespace NewsAnalizer.Dal.Repositories.Implementation
         {
             return Table.FirstOrDefaultAsync(t => t.Id.Equals(id));
         }
+
+        public DbSet<T> Get()
+        {
+            return Table;
+        }
+
         public Task Add(T entity)
         {
             throw new NotImplementedException();

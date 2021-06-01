@@ -3,6 +3,7 @@ using NewsAnalizer.Core.DataTransferObjects;
 using NewsAnalizer.Core.Interfaces.Services;
 using NewsAnalizer.Core.Services.Interfaces;
 using NewsAnalizer.Dal.Repositories.Interfaces;
+using NewsAnalizer.Dal.Repositories.Implementation;
 using NewsAnalizer.DAL.Core;
 using NewsAnalizer.DAL.Core.Entities;
 using System;
@@ -16,16 +17,11 @@ namespace NewsAnalizer.Services.Implementation
 {
     public class NewsService : INewsService
     {
-        private readonly IRepository<News> _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public NewsService(IRepository<News> repository)
+        public NewsService(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
-        }
-
-        public NewsService()
-        {
-            
+            _unitOfWork = unitOfWork;
         }
 
         public Task<IEnumerable<NewsDto>> AggregateNews()
@@ -73,7 +69,7 @@ namespace NewsAnalizer.Services.Implementation
 
         public async Task<NewsDto> GetNewsById(Guid? id)
         {
-            var entity = await _repository.GetById(id.Value);
+            var entity = await _unitOfWork.News.GetById(id.Value);
             return new NewsDto
             {
                 Id = entity.Id,
@@ -88,7 +84,7 @@ namespace NewsAnalizer.Services.Implementation
 
         public async Task<IEnumerable<NewsWithRssSourceNameDto>> GetNewsBySourceId(Guid? id)
         {
-            var v = _repository.FindBy(n => true, n => n.RssSource)
+            var v = _unitOfWork.News.FindBy(n => true, n => n.RssSource)
                .Where(n => n.RssSourceId.Equals(id.GetValueOrDefault()));
             var result = await v   
                .Select(n => new NewsWithRssSourceNameDto
@@ -109,42 +105,42 @@ namespace NewsAnalizer.Services.Implementation
         public async Task<IEnumerable<NewsDto>> GetNewsFromRssSource(RssSourceDto rssSource)
         {
             var newsList = new List<NewsDto>();
-            //using (var reader = XmlReader.Create(rssSource.Url))
-            //{
-            //    var feed = SyndicationFeed.Load(reader);
+            using (var reader = XmlReader.Create(rssSource.Url))
+            {
+                var feed = SyndicationFeed.Load(reader);
 
-            //    reader.Close();
+                reader.Close();
 
-            //    if (feed.Items.Any())
-            //    {
-            //        var dbUrls = await _db.News
-            //            .Where(n => n.RssSourceId == rssSource.Id)
-            //            .Select(n => n.Url)
-            //            .ToListAsync();
+                if (feed.Items.Any())
+                {
+                    var dbUrls = await _unitOfWork.News.Get()
+                        .Where(n => n.RssSourceId == rssSource.Id)
+                        .Select(n => n.Url)
+                        .ToListAsync();
 
-            //        foreach (var item in feed.Items)
-            //        {
-            //            if (!dbUrls.Contains(item.Id))
-            //            {
-            //                var newsDto = new NewsDto()
-            //                {
-            //                    Id = Guid.NewGuid(),
-            //                    RssSourceId = rssSource.Id,
-            //                    Url = item.Id,
-            //                    Title = item.Title.Text,
-            //                    Content = item.Summary.Text //item.Content.ToString()
-            //                };
-            //                newsList.Add(newsDto);
-            //            }
-            //        }
-            //    }
-            //}
+                    foreach (var item in feed.Items)
+                    {
+                        if (!dbUrls.Contains(item.Id))
+                        {
+                            var newsDto = new NewsDto()
+                            {
+                                Id = Guid.NewGuid(),
+                                RssSourceId = rssSource.Id,
+                                Url = item.Id,
+                                Title = item.Title.Text,
+                                Content = item.Summary.Text //item.Content.ToString()
+                            };
+                            newsList.Add(newsDto);
+                        }
+                    }
+                }
+            }
             return newsList;
         }
 
         public async Task<NewsWithRssSourceNameDto> GetNewsWithRssSourceNameById(Guid? id)
         {
-            var result = await _repository.FindBy(n => true, n => n.RssSource)
+            var result = await _unitOfWork.News.FindBy(n => true, n => n.RssSource)
                 .Where(n => n.Id.Equals(id.GetValueOrDefault()))
                 .Select(n => new NewsWithRssSourceNameDto
                 {
