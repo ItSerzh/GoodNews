@@ -27,6 +27,7 @@
     <ProjectReference Include="..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj" />
     <ProjectReference Include="..\NewsAnalizer.Dal.Repositories\NewsAnalizer.Dal.Repositories.Implementation.csproj" />
     <ProjectReference Include="..\NewsAnalizer.Services.Implementation\NewsAnalizer.Services.Implementation.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Utils.Html\NewsAnalyzer.Utils.Html.csproj" />
   </ItemGroup>
 
 </Project>

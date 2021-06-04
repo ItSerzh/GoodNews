@@ -19,9 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Services.Implementation", "..\NewsAnalizer.Services.Implementation\NewsAnalizer.Services.Implementation.csproj", "{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalizer.Dal.Repositories.Implementation", "..\NewsAnalizer.Dal.Repositories\NewsAnalizer.Dal.Repositories.Implementation.csproj", "{C726680B-D2B3-42A7-9998-7ACF507AFD03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Dal.Repositories.Implementation", "..\NewsAnalizer.Dal.Repositories\NewsAnalizer.Dal.Repositories.Implementation.csproj", "{C726680B-D2B3-42A7-9998-7ACF507AFD03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalizer.Dal.Repositories.Interfaces", "..\NewsAnalizer.Dal.Repositories.Interfaces\NewsAnalizer.Dal.Repositories.Interfaces.csproj", "{483D6127-F8A7-49F5-A60A-2EF164B3B46D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Dal.Repositories.Interfaces", "..\NewsAnalizer.Dal.Repositories.Interfaces\NewsAnalizer.Dal.Repositories.Interfaces.csproj", "{483D6127-F8A7-49F5-A60A-2EF164B3B46D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.Util", "NewsAnalyzer.Util", "{A65F520F-7654-4771-BCFF-BC6873B0FC6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Utils.Html", "..\NewsAnalyzer.Utils.Html\NewsAnalyzer.Utils.Html.csproj", "{2540FE8D-6638-4337-BCEA-BBC2E2BC2F0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,10 @@ Global
 		{483D6127-F8A7-49F5-A60A-2EF164B3B46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{483D6127-F8A7-49F5-A60A-2EF164B3B46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{483D6127-F8A7-49F5-A60A-2EF164B3B46D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2540FE8D-6638-4337-BCEA-BBC2E2BC2F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2540FE8D-6638-4337-BCEA-BBC2E2BC2F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2540FE8D-6638-4337-BCEA-BBC2E2BC2F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2540FE8D-6638-4337-BCEA-BBC2E2BC2F0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +76,7 @@ Global
 		{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B} = {9D430356-1278-4987-A79C-418FA11741D6}
 		{C726680B-D2B3-42A7-9998-7ACF507AFD03} = {8B361688-D903-4609-9C5C-D01636E08592}
 		{483D6127-F8A7-49F5-A60A-2EF164B3B46D} = {8B361688-D903-4609-9C5C-D01636E08592}
+		{2540FE8D-6638-4337-BCEA-BBC2E2BC2F0D} = {A65F520F-7654-4771-BCFF-BC6873B0FC6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC6EBC54-1FAF-4F2E-9FEC-F9D04C891AE6}

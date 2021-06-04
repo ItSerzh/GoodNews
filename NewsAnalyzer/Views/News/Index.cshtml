@@ -16,24 +16,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Summary)
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Url)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewsDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCollect)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RssSourceId)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -41,25 +30,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.Raw(item.Title)
             </td>
+            @*<td>
+                @Html.Raw(item.Summary)
+            </td>*@
             <td>
-                @Html.Raw(item.Content))
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Url)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewsDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCollect)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RssSourceId)
+                @Html.Raw(item.Body)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

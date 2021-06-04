@@ -8,26 +8,23 @@ using System.Threading.Tasks;
 
 namespace NewsAnalizer.Services.Implementation
 {
-    public class IgromaniaParser : IWebPageParser
+    public class ForPdaParser : IWebPageParser
     {
         public async Task<string> Parse(string url)
         {
             HtmlWeb web = new HtmlWeb();
             var htmlDoc = web.Load(url);
             var node = htmlDoc.DocumentNode
-                .SelectSingleNode("//div[contains(@class, 'page_news') and contains(@class, 'noselect')]");
+                .SelectSingleNode("//div[@class = 'container']");
 
             node = HtmlCleanup.RemoveElementsByXpath(node,
                 new[] {
                     "//meta",
-                    "//div[contains(@class, 'share_block')]",
-                    "//div[contains(@class, 'favorite_block')]",
-                    "//div[contains(@class, 'news_info')]",
-                    "//div[contains(@class, 'vn-player')]",
-                    "//div[contains(@class, 'uninote console')]",
-                    "//div[contains(@class, 'nepncont')]",
+                    "//div[@class='more-box']",
+                    "//p[@class='mb_source']"
                 }
                 );
+
             return node?.InnerHtml;
         }
     }

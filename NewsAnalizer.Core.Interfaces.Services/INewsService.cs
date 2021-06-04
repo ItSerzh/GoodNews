@@ -12,6 +12,7 @@ namespace NewsAnalizer.Core.Services.Interfaces
         Task <IEnumerable<NewsWithRssSourceNameDto>> GetNewsBySourceId(Guid? id);
         Task<IEnumerable<NewsDto>> GetNewsFromRssSource(RssSourceDto rssSource);
         Task<NewsDto> GetNewsById(Guid? id);
+        Task<IEnumerable<NewsWithRssSourceNameDto>> Get();
         Task<NewsWithRssSourceNameDto> GetNewsWithRssSourceNameById(Guid? id);
         Task<int> AddNews(NewsDto newsDto);
         Task<IEnumerable<NewsDto>> AddRange(IEnumerable<NewsDto> newsDto);

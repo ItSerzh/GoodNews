@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NewsAnalizer.Core.Interfaces.Services;
 using NewsAnalizer.Core.Services.Interfaces;
 using NewsAnalizer.Dal.Repositories.Implementation;
 using NewsAnalizer.Dal.Repositories.Interfaces;
@@ -41,27 +42,35 @@ namespace NewsAnalyzer
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IRssSourceService, RssSourceService>();
 
+            services.AddTransient<IgromaniaParser>();
+            services.AddTransient<ShazooParser>();
+            services.AddTransient<OnlinerParser>();
+            services.AddTransient<ForPdaParser>();
+            services.AddTransient<WylsaParser>();
 
-            
 
-            //services.AddTransient<IWebPageParser, OnlinerParser>();
-            RegisterWebPageParser(services);
+            //RegisterWebPageParser(services);
 
             services.AddControllersWithViews();
         }
 
         public void RegisterWebPageParser(IServiceCollection services)
         {
-            services.AddTransient<OnlinerParser>();
-            services.AddTransient<TutByParser>();
+            
             services.AddTransient<ServiceResolver>(serviceProvider => key =>
             {
                 switch (key)
                 {
+                    case "Igromania":
+                        return serviceProvider.GetService<IgromaniaParser>();
+                    case "Shazoo":
+                        return serviceProvider.GetService<ShazooParser>();
                     case "Onliner":
                         return serviceProvider.GetService<OnlinerParser>();
-                    case "TutBy":
-                        return serviceProvider.GetService<TutByParser>();
+                    case "4Pda":
+                        return serviceProvider.GetService<ForPdaParser>();
+                    case "Wylsa":
+                        return serviceProvider.GetService<WylsaParser>();
                     default:
                         throw new KeyNotFoundException(); // or maybe return null, up to you
                 }

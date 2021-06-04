@@ -12,7 +12,10 @@ using NewsAnalizer.Core.Interfaces.Services;
 using NewsAnalizer.Core.Services.Interfaces;
 using NewsAnalizer.DAL.Core;
 using NewsAnalizer.DAL.Core.Entities;
+using NewsAnalizer.Services.Implementation;
+using NewsAnalyzer.Helpers;
 using NewsAnalyzer.Models.ViewModels;
+using NewsAnalyzer.Utils.Html;
 using static NewsAnalizer.Services.Implementation.WebPageParse;
 
 namespace NewsAnalyzer.Controllers
@@ -21,27 +24,30 @@ namespace NewsAnalyzer.Controllers
     {
         private readonly INewsService _newsService;
         private readonly IRssSourceService _rssSourceService;
-        private readonly IWebPageParser _onlinerParser;
-        private readonly IWebPageParser _tutByParser;
+        private readonly IgromaniaParser _igromaniaParser;
+        private readonly ShazooParser _shazooParser;
+        private readonly OnlinerParser _onlinerParser;
+        private readonly ForPdaParser _4PdaParser;
+        private readonly WylsaParser _wylsaParser;
 
         public NewsController(INewsService newsService, IRssSourceService rssSourceService,
-            ServiceResolver webPageParser)
+            IgromaniaParser igromaniaParser, ShazooParser shazooParser,
+            OnlinerParser onlinerParser, ForPdaParser forPdaParser, WylsaParser wylsaParser)
         {
-            _rssSourceService = rssSourceService;
             _newsService = newsService;
-            _onlinerParser = webPageParser("Onliner");
-            _tutByParser = webPageParser("TutBy");
+            _rssSourceService = rssSourceService;
+            _igromaniaParser = igromaniaParser;
+            _shazooParser = shazooParser;
+            _onlinerParser = onlinerParser;
+            _4PdaParser = forPdaParser;
+            _wylsaParser = wylsaParser;
         }
 
         // GET: News
         public async Task<IActionResult> Index(Guid? rssSourceId)
         {
-            if (rssSourceId == null)
-            {
-                return NotFound();
-            }
-
-            var news = (await _newsService.GetNewsBySourceId(rssSourceId));
+            
+            var news = await _newsService.GetNewsBySourceId(rssSourceId);
             return View(news);
         }
 
@@ -59,7 +65,7 @@ namespace NewsAnalyzer.Controllers
             {
                 Id = news.Id,
                 Title = news.Title,
-                Content = news.Content,
+                Summary = news.Summary,
                 Url = news.Url,
                 NewsDate = news.NewsDate,
                 DateCollect = news.DateCollect,
@@ -70,10 +76,8 @@ namespace NewsAnalyzer.Controllers
             return View(vewModel);
         }
 
-
         public IActionResult Aggregate()
         {
-            //ViewData["RssSourceId"] = new SelectList(_newsService. RssSource, "Id", "Id");
             return View();
         }
 
@@ -85,30 +89,39 @@ namespace NewsAnalyzer.Controllers
             {
                 var rssSources = (await _rssSourceService.GetRssSources());
 
-                var newsInfos = new List<NewsDto>();
+                var allSourcesNews = new List<NewsDto>();
                 foreach (var rssSource in rssSources)
                 {
-                    var newsList = await _newsService.GetNewsFromRssSource(rssSource);
-                    if(rssSource.Id == new Guid("E3512D7D-381A-4655-8B60-584C08D9254A"))
+                    var oneSourceNewsList = await _newsService.GetNewsFromRssSource(rssSource);
+
+                    foreach (var oneSourceNews in oneSourceNewsList)
                     {
-                        foreach (var newsDto in newsList)
+                        if (rssSource.Name == "Igromania")
                         {
-                            var newsContent = await _onlinerParser.Parse(newsDto.Url);
-                            newsDto.Content = newsContent;
+                            oneSourceNews.Body = await _igromaniaParser.Parse(oneSourceNews.Url);
+                        }
+                        if (rssSource.Name == "Shazoo")
+                        {
+                            oneSourceNews.Body = await _shazooParser.Parse(oneSourceNews.Url);
+                        }
+                        if (rssSource.Name == "Onliner")
+                        {
+                            oneSourceNews.Body = await _onlinerParser.Parse(oneSourceNews.Url);
+                        }
+                        if (rssSource.Name == "4Pda")
+                        {
+                            oneSourceNews.Body = await _4PdaParser.Parse(oneSourceNews.Url);
+                        }
+                        if (rssSource.Name == "Wylsa")
+                        {
+                            oneSourceNews.Body = await _wylsaParser.Parse(oneSourceNews.Url);
                         }
                     }
-                    else
-                    {
-                        foreach (var newsDto in newsList)
-                        {
-                            var newsContent = await _tutByParser.Parse(newsDto.Url);
-                            newsDto.Content = newsContent ?? "";
-                        }
-                    }
-                    newsInfos.AddRange(newsList);
+                    
+                    allSourcesNews.AddRange(oneSourceNewsList);
                 }
 
-                await _newsService.AddRange(newsInfos);
+                await _newsService.AddRange(allSourcesNews);
 
             }
             catch (Exception e)

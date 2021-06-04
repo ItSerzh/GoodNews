@@ -49,9 +49,9 @@ namespace NewsAnalizer.Dal.Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public Task AddRange(IEnumerable<T> T)
+        public async Task AddRange(IEnumerable<T> T)
         {
-            throw new NotImplementedException();
+            await Db.AddRangeAsync(T);
         }
 
         public Task Remove(T entity)
