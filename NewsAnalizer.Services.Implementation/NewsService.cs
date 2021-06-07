@@ -13,6 +13,7 @@ using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Xml;
 using NewsAnalyzer.Utils.Html;
+using Serilog;
 
 namespace NewsAnalizer.Services.Implementation
 {
@@ -201,6 +202,7 @@ namespace NewsAnalizer.Services.Implementation
                     .FindBy(news => news.RssSourceId == rssSource.Id)
                     .ToListAsync();
 
+                Log.Information($"News count in DB: {currentNewsUrls.Count}");
 
                 foreach (var feedItem in feed.Items)
                 {

@@ -16,6 +16,7 @@ using NewsAnalizer.Services.Implementation;
 using NewsAnalyzer.Helpers;
 using NewsAnalyzer.Models.ViewModels;
 using NewsAnalyzer.Utils.Html;
+using Serilog;
 using static NewsAnalizer.Services.Implementation.WebPageParse;
 
 namespace NewsAnalyzer.Controllers
@@ -88,11 +89,13 @@ namespace NewsAnalyzer.Controllers
             try
             {
                 var rssSources = (await _rssSourceService.GetRssSources());
-
+                Log.Information("***Try to aggregate news");
                 var allSourcesNews = new List<NewsDto>();
                 foreach (var rssSource in rssSources)
                 {
+                    Log.Information($"Aggregate from {rssSource.Name}");
                     var oneSourceNewsList = await _newsService.GetNewsFromRssSource(rssSource);
+                    Log.Information($"News in rss source: {oneSourceNewsList.Count()}");
 
                     foreach (var oneSourceNews in oneSourceNewsList)
                     {
@@ -119,14 +122,15 @@ namespace NewsAnalyzer.Controllers
                     }
                     
                     allSourcesNews.AddRange(oneSourceNewsList);
+                    Log.Information($"Finished aggregate from {rssSource.Name}");
                 }
 
+                Log.Information($"***Total aggregated news count {allSourcesNews.Count()}");
                 await _newsService.AddRange(allSourcesNews);
-
             }
             catch (Exception e)
             {
-                //log error
+                Log.Error(e, $"Failed to aggregate news ");
                 throw; 
             }
             return RedirectToAction(nameof(Index),(new Guid("E3512D7D-381A-4655-8B60-584C08D9254A")));
