@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NewsAnalizer.Core.DataTransferObjects;
 using NewsAnalizer.Core.Interfaces.Services;
 using NewsAnalizer.Core.Services.Interfaces;
 using NewsAnalizer.Dal.Repositories.Implementation;
@@ -12,6 +14,7 @@ using NewsAnalizer.Dal.Repositories.Interfaces;
 using NewsAnalizer.DAL.Core;
 using NewsAnalizer.DAL.Core.Entities;
 using NewsAnalizer.Services.Implementation;
+using NewsAnalizer.Services.Implementation.Mapping;
 using RssSourceAnalizer.Dal.Repositories.Implementation;
 using System;
 using System.Collections.Generic;
@@ -36,7 +39,7 @@ namespace NewsAnalyzer
             services.AddDbContext<NewsAnalizerContext>(opt => 
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<IRepository<News>, NewsRepository>();
+            services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<IRepository<RssSource>, RssSourceRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INewsService, NewsService>();
@@ -49,9 +52,15 @@ namespace NewsAnalyzer
             services.AddTransient<WylsaParser>();
 
 
-            //RegisterWebPageParser(services);
-
             services.AddControllersWithViews();
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapping());
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         public void RegisterWebPageParser(IServiceCollection services)

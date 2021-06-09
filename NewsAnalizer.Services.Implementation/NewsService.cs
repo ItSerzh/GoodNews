@@ -14,16 +14,19 @@ using System.Threading.Tasks;
 using System.Xml;
 using NewsAnalyzer.Utils.Html;
 using Serilog;
+using AutoMapper;
 
 namespace NewsAnalizer.Services.Implementation
 {
     public class NewsService : INewsService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public NewsService(IUnitOfWork unitOfWork)
+        public NewsService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public Task<IEnumerable<NewsDto>> AggregateNews()
@@ -39,17 +42,7 @@ namespace NewsAnalizer.Services.Implementation
 
         public async Task<IEnumerable<NewsDto>> AddRange(IEnumerable<NewsDto> newsDto)
         {
-            var news = newsDto.Select(n => new News
-            {
-                Title = n.Title,
-                NewsDate = n.NewsDate,
-                Summary = n.Summary,
-                RssSourceId = n.RssSourceId,
-                Url = n.Url,
-                DateCollect = n.DateCollect,
-                Id = n.Id,
-                Body = n.Body
-            });
+            var news = newsDto.Select(n => _mapper.Map<News>(n));
 
             await _unitOfWork.News.AddRange(news);
             await _unitOfWork.SaveChangesAsync();
@@ -223,6 +216,13 @@ namespace NewsAnalizer.Services.Implementation
                 }
             }
             return newsList;
+        }
+
+        public async Task<IEnumerable<NewsWithRssSourceNameDto>> GetTopNNewsFromEachSource(int newsCount)
+        {
+            var retVal = await _unitOfWork.News.GetTopNNewsFromEachSource(newsCount);
+
+            return retVal;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace NewsAnalizer.Core.Services.Interfaces
         Task<IEnumerable<NewsDto>> AggregateNews();
         
         Task <IEnumerable<NewsWithRssSourceNameDto>> GetNewsBySourceId(Guid? id);
+        Task<IEnumerable<NewsWithRssSourceNameDto>> GetTopNNewsFromEachSource(int newsCount);
         Task<IEnumerable<NewsDto>> GetNewsFromRssSource(RssSourceDto rssSource);
         Task<NewsDto> GetNewsById(Guid? id);
         Task<IEnumerable<NewsWithRssSourceNameDto>> Get();

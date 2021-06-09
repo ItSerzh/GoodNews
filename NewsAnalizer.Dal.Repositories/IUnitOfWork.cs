@@ -7,7 +7,7 @@ namespace NewsAnalizer.Dal.Repositories.Implementation
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<News> News {get;}
+        INewsRepository News {get;}
         IRepository<RssSource> RssSource {get;}
 
         Task<int> SaveChangesAsync();

@@ -11,17 +11,17 @@ namespace NewsAnalizer.Dal.Repositories.Implementation
     public class UnitOfWork : IUnitOfWork 
     {
         private readonly NewsAnalizerContext _db;
-        private readonly IRepository<News> _newsRepository;
+        private readonly INewsRepository _newsRepository;
         private readonly IRepository<RssSource> _rssRepository;
 
-        public UnitOfWork(NewsAnalizerContext db, IRepository<News> newsRepository, IRepository<RssSource> rssRepository)
+        public UnitOfWork(NewsAnalizerContext db, INewsRepository newsRepository, IRepository<RssSource> rssRepository)
         {
             _db = db;
             _newsRepository = newsRepository;
             _rssRepository = rssRepository;
         }
 
-        public IRepository<News> News => _newsRepository;
+        public INewsRepository News => _newsRepository;
         public IRepository<RssSource> RssSource => _rssRepository;
 
         public async Task<int> SaveChangesAsync()

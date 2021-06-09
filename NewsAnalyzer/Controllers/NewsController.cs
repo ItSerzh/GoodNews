@@ -47,8 +47,9 @@ namespace NewsAnalyzer.Controllers
         // GET: News
         public async Task<IActionResult> Index(Guid? rssSourceId)
         {
-            
-            var news = await _newsService.GetNewsBySourceId(rssSourceId);
+
+            //var news = await _newsService.GetNewsBySourceId(rssSourceId);
+            var news = await _newsService.GetTopNNewsFromEachSource(3);
             return View(news);
         }
 
