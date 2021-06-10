@@ -10,41 +10,25 @@
     <a asp-action="Create">Create New</a>
     <a asp-action="Aggregate">Aggregate</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Summary)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Url)
-            </th>
-            
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.Raw(item.Title)
-                @Html.Raw(item.RssSourceName)
-            </td>
-            @*<td>
+
+<div class="row justify-content-around">
+    @foreach (var item in Model)
+    {
+    
+    <div class="col-sm-12 col-md-6 col-lg-4 ">
+        <div class="bordered preview-block">
+            <h5>@Html.Raw(item.Title)</h5>
+            <span class="row justify-content-end"> @item.NewsDate.ToString("dd-MM-yyyy H:m")</span>
+
+            <div class="fit-image">
                 @Html.Raw(item.Summary)
-            </td>*@
-            <td>
-                @Html.Raw(item.Body)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </div>
+            <div class="col-11 bottom-pane">
+                <a class="col-6 left-nav" href="@item.Url">Read here</a>
+                <a class="col-6 right-nav" href="@item.Url">Read on @item.RssSourceName</a>
+            </div>
+        </div>
+    </div>
+    
+    }
+</div>

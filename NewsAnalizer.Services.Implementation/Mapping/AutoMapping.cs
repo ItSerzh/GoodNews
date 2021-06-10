@@ -15,7 +15,7 @@ namespace NewsAnalizer.Services.Implementation.Mapping
             CreateMap<NewsDto, News>();
 
             CreateMap<News, NewsWithRssSourceNameDto >()
-                .ForMember(dest => dest.RssSourceName, opt => opt.MapFrom(src => src.RssSource.Name)); 
+                .ForMember(dest => dest.RssSourceName, opt => opt.MapFrom(src => src.RssSource.Name));
         }
     }
 }

@@ -69,3 +69,46 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.fit-image  img {
+    width: 100%;
+    object-fit: cover;
+   /* height: 300px;  only if you want fixed height */
+}
+
+.preview-block {
+    max-height: 500px;
+    overflow: hidden;
+    margin: 2px -13px 2px -13px;
+    padding: 5px;
+    /*border: solid #e0e0e0 1px;*/
+}
+
+.bordered {
+    border: solid #e0e0e0 1px;
+}
+
+.preview-block .row{
+    margin-right: 0px;
+}
+
+    .preview-block .bottom-pane {
+        position: absolute;
+        bottom: 3px;
+        background-color: rgba(255,255,255,.78);
+        height: auto;
+    }
+
+    .preview-block .bottom-pane a {
+        background-color: white;
+        position: absolute;
+        bottom: 0px;
+    }
+
+        .preview-block .bottom-pane a.left-nav {
+            left: 0px;
+        }
+
+        .preview-block .bottom-pane a.right-nav {
+            right: 0px;
+        }
