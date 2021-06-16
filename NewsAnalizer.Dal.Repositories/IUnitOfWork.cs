@@ -9,6 +9,9 @@ namespace NewsAnalizer.Dal.Repositories.Implementation
     {
         INewsRepository News {get;}
         IRepository<RssSource> RssSource {get;}
+        IRepository<User> User { get; }
+        IRepository<Role> Role { get; }
+
 
         Task<int> SaveChangesAsync();
     }

@@ -13,6 +13,12 @@ namespace NewsAnalizer.Services.Implementation.Mapping
         {
             CreateMap<News, NewsDto>();
             CreateMap<NewsDto, News>();
+            
+            CreateMap<UserDto, User>();
+            CreateMap<User, UserDto>();
+
+            CreateMap<RoleDto, Role>();
+            CreateMap<Role, RoleDto>();
 
             CreateMap<News, NewsWithRssSourceNameDto >()
                 .ForMember(dest => dest.RssSourceName, opt => opt.MapFrom(src => src.RssSource.Name));

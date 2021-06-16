@@ -44,9 +44,9 @@ namespace NewsAnalizer.Dal.Repositories.Implementation
             return Table;
         }
 
-        public Task Add(T entity)
+        public void Add(T entity)
         {
-            throw new NotImplementedException();
+             Db.Add(entity);
         }
 
         public async Task AddRange(IEnumerable<T> T)
@@ -66,7 +66,8 @@ namespace NewsAnalizer.Dal.Repositories.Implementation
 
         public Task Update(T entity)
         {
-            throw new NotImplementedException();
+            Db.Entry(entity).State = EntityState.Modified;
+            return Task.CompletedTask;
         }
 
         public void Dispose()

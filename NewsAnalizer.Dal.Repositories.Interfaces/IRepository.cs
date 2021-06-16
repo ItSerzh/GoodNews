@@ -14,7 +14,7 @@ namespace NewsAnalizer.Dal.Repositories.Interfaces
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         Task<T> GetById(Guid id);
         DbSet<T> Get();
-        Task Add(T entity);
+        void Add(T entity);
         Task AddRange(IEnumerable<T> T);
         Task Update(T entity);
         Task Remove(T entity);

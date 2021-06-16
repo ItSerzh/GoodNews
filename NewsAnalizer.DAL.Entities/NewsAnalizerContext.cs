@@ -12,6 +12,7 @@ namespace NewsAnalizer.DAL.Core
         public DbSet<News> News { get; set; }
         public DbSet<RssSource> RssSource { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Role { get; set; }
 
         public NewsAnalizerContext(DbContextOptions<NewsAnalizerContext> options) : base(options)
         {

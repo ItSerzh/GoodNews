@@ -1,6 +1,8 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,16 +43,18 @@ namespace NewsAnalyzer
 
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<IRepository<RssSource>, RssSourceRepository>();
+            services.AddTransient<IRepository<User>, UserRepository>();
+            services.AddTransient<IRepository<Role>, RoleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IRssSourceService, RssSourceService>();
-
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
             services.AddTransient<IgromaniaParser>();
             services.AddTransient<ShazooParser>();
             services.AddTransient<OnlinerParser>();
             services.AddTransient<ForPdaParser>();
             services.AddTransient<WylsaParser>();
-
 
             services.AddControllersWithViews();
 
@@ -58,6 +62,13 @@ namespace NewsAnalyzer
             {
                 mc.AddProfile(new AutoMapping());
             });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(opt =>
+                {
+                    opt.LoginPath = new PathString("/Acount/Login");
+                    opt.AccessDeniedPath = new PathString("/Acount/Login");
+                });
 
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -104,6 +115,7 @@ namespace NewsAnalyzer
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
