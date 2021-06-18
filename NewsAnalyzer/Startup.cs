@@ -58,17 +58,17 @@ namespace NewsAnalyzer
 
             services.AddControllersWithViews();
 
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AutoMapping());
-            });
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(opt =>
                 {
                     opt.LoginPath = new PathString("/Acount/Login");
                     opt.AccessDeniedPath = new PathString("/Acount/Login");
                 });
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapping());
+            });
 
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);

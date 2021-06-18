@@ -13,7 +13,10 @@ namespace NewsAnalizer.Services.Implementation.Mapping
         {
             CreateMap<News, NewsDto>();
             CreateMap<NewsDto, News>();
-            
+
+            CreateMap<RssSource, RssSourceDto>();
+            CreateMap<RssSourceDto, RssSource>();
+
             CreateMap<UserDto, User>();
             CreateMap<User, UserDto>();
 

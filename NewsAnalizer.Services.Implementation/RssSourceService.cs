@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using NewsAnalizer.Core.DataTransferObjects;
 using NewsAnalizer.Core.Services.Interfaces;
 using NewsAnalizer.Dal.Repositories.Implementation;
@@ -16,40 +17,12 @@ namespace NewsAnalizer.Services.Implementation
     public class RssSourceService : IRssSourceService
     {
         private IUnitOfWork _unitOfWork;
+        private IMapper _mapper;
 
-        public RssSourceService(IUnitOfWork unitOfWork)
+        public RssSourceService(IUnitOfWork unitOfWork, IMapper mapper) 
         {
+            _mapper = mapper;
             _unitOfWork = unitOfWork;
-        }
-
-        public Task<IEnumerable<RssSourceDto>> AddRange(IEnumerable<RssSourceDto> rssSourceDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> AddRssSource(RssSourceDto rssSourceDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> Delete(RssSourceDto rssSourceDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> Edit(RssSourceDto rssSourceDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<RssSourceDto>> FindRssSource()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<RssSourceDto> GetRssSourceById(Guid? id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<RssSourceDto>> GetRssSources(Guid? id = null)
@@ -57,24 +30,14 @@ namespace NewsAnalizer.Services.Implementation
             if(id == null)
             {
                 return await _unitOfWork.RssSource.FindBy(s => true)
-                    .Select(rs => new RssSourceDto
-                    {
-                        Id = rs.Id,
-                        Name = rs.Name,
-                        Url = rs.Url
-                    })
+                    .Select(rs => _mapper.Map<RssSourceDto>(rs))
                     .ToListAsync();
 
             }
             else
             {
                 return await _unitOfWork.RssSource.FindBy(s => s.Id == id.Value)
-                    .Select(rs => new RssSourceDto
-                    {
-                        Id = rs.Id,
-                        Name = rs.Name,
-                        Url = rs.Url
-                    })?
+                    .Select(rs => _mapper.Map<RssSourceDto>(rs))?
                     .ToListAsync();
             }
         }

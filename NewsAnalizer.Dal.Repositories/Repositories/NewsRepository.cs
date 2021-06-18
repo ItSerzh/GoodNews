@@ -27,7 +27,7 @@ namespace NewsAnalizer.Dal.Repositories.Implementation
 
         public async Task <IEnumerable<NewsWithRssSourceNameDto>> GetTopNNewsFromEachSource(int count)
         {
-            var rssSources = _context.RssSource.ToList();
+            var rssSources = _context.RssSources.ToList();
 
             var retVal = new List<NewsWithRssSourceNameDto>();
 
