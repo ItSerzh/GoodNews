@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace NewsAnalyzer.DAL.CQRS.QueryHandlers
 {
-    public class GetRssSourceByIdQueryHadler : IRequestHandler<GetRssSourceByIdQuery, IEnumerable<RssSourceDto>>
+    public class GetRssSourceByIdQueryHadler : IRequestHandler<GetRssSourceByIdQuery, List<RssSourceDto>>
     {
         private NewsAnalizerContext _context;
         private IMapper _mapper;
@@ -24,7 +24,7 @@ namespace NewsAnalyzer.DAL.CQRS.QueryHandlers
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<RssSourceDto>> Handle(GetRssSourceByIdQuery request, CancellationToken cancellationToken)
+        public async Task<List<RssSourceDto>> Handle(GetRssSourceByIdQuery request, CancellationToken cancellationToken)
         {
             var rssSources = await _context.RssSources.Where(s => !request.Id.HasValue  || s.Id.Equals(request.Id))
                 .Select(s => _mapper.Map<RssSourceDto>(s))

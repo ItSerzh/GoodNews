@@ -12,7 +12,7 @@ namespace NewsAnalizer.DAL.Core.Entities
         public string Title { get; set; }
         public string Summary { get; set; }
         public string Url { get; set; }
-        public float Rating { get; set; }
+        public float? Rating { get; set; }
         public DateTime NewsDate { get; set; }
         public DateTime DateCollect { get; set; }
         public string Body { get; set; }

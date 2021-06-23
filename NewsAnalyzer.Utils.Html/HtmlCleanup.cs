@@ -17,6 +17,13 @@ namespace NewsAnalyzer.Helpers
             return retVal;
         }
 
+        public static string RemoveHtmlTags(string inVal)
+        {
+            string pattern = "<[^>]*>";
+            var retVal = Regex.Replace(inVal, pattern, "");
+            return retVal;
+        }
+
         public static HtmlNode RemoveElement(HtmlNode html, string[] tagNames, string[] css, string[] ids)
         {
             var retVal = html.Clone();

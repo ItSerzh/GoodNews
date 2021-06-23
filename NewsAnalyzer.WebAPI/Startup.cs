@@ -1,4 +1,6 @@
 using AutoMapper;
+using Hangfire;
+using Hangfire.SqlServer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,18 +40,35 @@ namespace NewsAnalyzer.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<NewsAnalizerContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                opt.UseSqlServer(sqlConnectionString));
 
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<IRepository<RssSource>, RssSourceRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IRepository<Role>, RoleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<INewsService, NewsCqsService>();
             services.AddScoped<IRssSourceService, RssSourceCqsService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+
+            services.AddHangfire(conf => conf
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseIgnoredAssemblyVersionTypeResolver()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(sqlConnectionString, new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(30),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(30),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    UsePageLocksOnDequeue = true,
+                    DisableGlobalLocks = true
+                }));
+            services.AddHangfireServer();
+
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -69,14 +88,20 @@ namespace NewsAnalyzer.WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProveider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NewsAnalyzer.WebAPI v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NewsAnalyzer.WebAPI v1"));
+
+            app.UseHangfireDashboard();
+
+            var newsService = serviceProveider.GetRequiredService(typeof(INewsService)) as INewsService;
+            RecurringJob.AddOrUpdate(() => newsService.RateNews(), "0/15 * * * *");
 
             app.UseHttpsRedirection();
 
@@ -87,6 +112,7 @@ namespace NewsAnalyzer.WebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
             });
         }
     }

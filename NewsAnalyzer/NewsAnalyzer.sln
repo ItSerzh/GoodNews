@@ -29,7 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Utils.Html", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.WebAPI", "..\NewsAnalyzer.WebAPI\NewsAnalyzer.WebAPI.csproj", "{83F12E8B-7C5C-4D21-9EAA-64732084148D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.DAL.CQRS", "..\NewsAnalyzer.DAL.CQRS\NewsAnalyzer.DAL.CQRS.csproj", "{43CF2E04-5712-40DD-B25F-D5F4135C5728}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.DAL.CQRS", "..\NewsAnalyzer.DAL.CQRS\NewsAnalyzer.DAL.CQRS.csproj", "{43CF2E04-5712-40DD-B25F-D5F4135C5728}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.Web", "NewsAnalyzer.Web", "{F8CA2EC2-70AE-4E53-BD11-8E53D60AD9F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Web.Services", "..\NewsAnalyzer.Web.Services\NewsAnalyzer.Web.Services.csproj", "{60F982AC-5BD0-4587-B89D-E6FE3A190172}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Util.Text", "..\NewsAnalyzer.Util.Text\NewsAnalyzer.Util.Text.csproj", "{D6AAA793-5313-4178-9549-AB9283F6B0D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +83,14 @@ Global
 		{43CF2E04-5712-40DD-B25F-D5F4135C5728}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43CF2E04-5712-40DD-B25F-D5F4135C5728}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43CF2E04-5712-40DD-B25F-D5F4135C5728}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60F982AC-5BD0-4587-B89D-E6FE3A190172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60F982AC-5BD0-4587-B89D-E6FE3A190172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60F982AC-5BD0-4587-B89D-E6FE3A190172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60F982AC-5BD0-4587-B89D-E6FE3A190172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6AAA793-5313-4178-9549-AB9283F6B0D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6AAA793-5313-4178-9549-AB9283F6B0D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6AAA793-5313-4178-9549-AB9283F6B0D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6AAA793-5313-4178-9549-AB9283F6B0D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +104,8 @@ Global
 		{483D6127-F8A7-49F5-A60A-2EF164B3B46D} = {8B361688-D903-4609-9C5C-D01636E08592}
 		{2540FE8D-6638-4337-BCEA-BBC2E2BC2F0D} = {A65F520F-7654-4771-BCFF-BC6873B0FC6D}
 		{43CF2E04-5712-40DD-B25F-D5F4135C5728} = {8B361688-D903-4609-9C5C-D01636E08592}
+		{60F982AC-5BD0-4587-B89D-E6FE3A190172} = {F8CA2EC2-70AE-4E53-BD11-8E53D60AD9F4}
+		{D6AAA793-5313-4178-9549-AB9283F6B0D8} = {A65F520F-7654-4771-BCFF-BC6873B0FC6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC6EBC54-1FAF-4F2E-9FEC-F9D04C891AE6}

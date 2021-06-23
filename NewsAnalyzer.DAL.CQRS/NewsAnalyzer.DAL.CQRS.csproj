@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
@@ -16,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NewsAnalizer.Core.DataTransferObjects\NewsAnalizer.Core.DataTransferObjects.csproj" />
     <ProjectReference Include="..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Utils.Html\NewsAnalyzer.Utils.Html.csproj" />
   </ItemGroup>
 
   <ItemGroup>

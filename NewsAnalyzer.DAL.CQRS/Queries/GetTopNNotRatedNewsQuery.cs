@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace NewsAnalyzer.DAL.CQRS.Queries
 {
-    public class GetRssSourceByIdQuery : IRequest<List<RssSourceDto>>
+    public class GetTopNNotRatedNewsQuery : IRequest<List<NewsDto>>
     {
-        public Guid? Id { get; set; }
-        public GetRssSourceByIdQuery(Guid? id)
-        {
-            Id = id;
-        }
+        public int Count { get; set; }
     }
 }
