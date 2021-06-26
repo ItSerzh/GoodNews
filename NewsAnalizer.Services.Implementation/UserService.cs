@@ -27,14 +27,6 @@ namespace NewsAnalizer.Services.Implementation
             _mapper = mapper;
         }
 
-        public string GetPasswordHash(string password)
-        {
-            var sha256 = new SHA256CryptoServiceProvider();
-            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            
-            return Encoding.UTF8.GetString(hashedBytes);
-        }
-
         public async Task<bool> Register(UserDto model)
         {
             try
@@ -61,6 +53,11 @@ namespace NewsAnalizer.Services.Implementation
                 .FirstOrDefaultAsync();
 
             return _mapper.Map<UserDto>(user);
+        }
+
+        public Task<UserDto> GetByRefreshToken(string token)
+        {
+            throw new NotImplementedException();
         }
     }
 }

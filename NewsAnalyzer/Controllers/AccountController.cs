@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using NewsAnalizer.Core.DataTransferObjects;
 using NewsAnalizer.Core.Services.Interfaces;
 using NewsAnalyzer.Models.ViewModels.Account;
+using NewsAnalyzer.Util.Text;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace NewsAnalyzer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var passwHash = _userService.GetPasswordHash(model.Password);
+                var passwHash = Text.EncryptSHA256(model.Password);
                 var userRegistered = await _userService.Register(new UserDto
                 {
                     Id = Guid.NewGuid(),
@@ -70,7 +71,7 @@ namespace NewsAnalyzer.Controllers
                 
                 if(targetUser != null)
                 {
-                    var passwHash = _userService.GetPasswordHash(model.Password);
+                    var passwHash = Text.EncryptSHA256(model.Password);
                     if (targetUser.PasswordHash.Equals(passwHash))
                     {
                         await Authenticate(targetUser);

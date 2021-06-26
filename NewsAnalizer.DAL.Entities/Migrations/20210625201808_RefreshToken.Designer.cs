@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewsAnalizer.DAL.Core;
 
 namespace NewsAnalizer.DAL.Core.Migrations
 {
     [DbContext(typeof(NewsAnalizerContext))]
-    partial class NewsAnalizerContextModelSnapshot : ModelSnapshot
+    [Migration("20210625201808_RefreshToken")]
+    partial class RefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,7 +209,7 @@ namespace NewsAnalizer.DAL.Core.Migrations
             modelBuilder.Entity("NewsAnalizer.DAL.Core.Entities.RefreshToken", b =>
                 {
                     b.HasOne("NewsAnalizer.DAL.Core.Entities.User", "User")
-                        .WithMany("RefreshTokens")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -242,8 +244,6 @@ namespace NewsAnalizer.DAL.Core.Migrations
             modelBuilder.Entity("NewsAnalizer.DAL.Core.Entities.User", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

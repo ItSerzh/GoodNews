@@ -2,6 +2,7 @@ using AutoMapper;
 using Hangfire;
 using Hangfire.SqlServer;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NewsAnalizer.Core.Services.Interfaces;
 using NewsAnalizer.Dal.Repositories.Implementation;
@@ -20,10 +22,12 @@ using NewsAnalizer.DAL.Core.Entities;
 using NewsAnalizer.Services.Implementation;
 using NewsAnalizer.Services.Implementation.Mapping;
 using NewsAnalyzer.DAL.CQRS.Queries;
+using NewsAnalyzer.WebAPI.Auth;
 using RssSourceAnalizer.Dal.Repositories.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace NewsAnalyzer.WebAPI
@@ -51,8 +55,10 @@ namespace NewsAnalyzer.WebAPI
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INewsService, NewsCqsService>();
             services.AddScoped<IRssSourceService, RssSourceCqsService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserCqsService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IJwtAuthManager, JwtAuthManager>();
+            services.AddScoped<IRefreshTokenService, RefreshTokenCqsService>();
 
             services.AddHangfire(conf => conf
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
@@ -79,6 +85,25 @@ namespace NewsAnalyzer.WebAPI
             services.AddSingleton(mapper);
 
             services.AddMediatR(typeof(GetRssSourceByIdQuery));
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.RequireHttpsMetadata = false;
+                opt.SaveToken = true;
+                opt.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -107,6 +132,7 @@ namespace NewsAnalyzer.WebAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

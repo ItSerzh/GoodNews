@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace NewsAnalyzer.Util.Text
@@ -29,6 +31,14 @@ namespace NewsAnalyzer.Util.Text
             target = RemoveHiddenSymbols(target);
 
             return target.Replace("\"", "");
+        }
+
+        public static string EncryptSHA256(string str)
+        {
+            var sha256 = new SHA256CryptoServiceProvider();
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(str));
+
+            return Encoding.UTF8.GetString(hashedBytes);
         }
     }
 }

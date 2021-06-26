@@ -19,6 +19,9 @@
     <Reference Include="AutoMapper">
       <HintPath>..\..\..\.nuget\automapper\10.1.1\lib\netstandard2.0\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\..\..\.nuget\serilog\2.10.0\lib\netstandard2.1\Serilog.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

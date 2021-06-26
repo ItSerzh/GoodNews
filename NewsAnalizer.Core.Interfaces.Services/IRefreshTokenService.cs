@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace NewsAnalizer.Core.Services.Interfaces
 {
-    public interface IUserService
+    public interface IRefreshTokenService
     {
-        Task<bool> Register(UserDto model);
-        Task<UserDto> GetByEmail(string email);
-        Task<UserDto> GetByRefreshToken(string token);
+        Task<RefreshTokenDto> GenerateRefreshToken(Guid userId);
+        Task<bool> CheckRefreshTokenIsValid(string refreshToken);
     }
 }

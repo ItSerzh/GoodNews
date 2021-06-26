@@ -19,5 +19,6 @@ namespace NewsAnalizer.DAL.Core.Entities
         public Role Role { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }
