@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using NewsAnalizer.DAL.Core;
-using NewsAnalizer.DAL.Core.Entities;
+using NewsAnalyzer.DAL.Core;
+using NewsAnalyzer.DAL.Core.Entities;
 using NewsAnalyzer.DAL.CQRS.Commands;
 using System;
 using System.Collections.Generic;
@@ -15,10 +15,10 @@ namespace NewsAnalyzer.DAL.CQRS.CommandHandlers
 {
     public class UpdateCurrentRefreshTokensCommandHandler : IRequestHandler<UpdateCurrentRefreshTokensCommand, int>
     {
-        private NewsAnalizerContext _dbContext;
+        private NewsAnalyzerContext _dbContext;
         private IMapper _mapper;
 
-        public UpdateCurrentRefreshTokensCommandHandler(NewsAnalizerContext dbContext, IMapper mapper)
+        public UpdateCurrentRefreshTokensCommandHandler(NewsAnalyzerContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;

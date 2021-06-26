@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NewsAnalizer.Core.Services.Interfaces;
+using NewsAnalyzer.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -31,10 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NewsAnalizer.Core.DataTransferObjects\NewsAnalizer.Core.DataTransferObjects.csproj" />
-    <ProjectReference Include="..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj" />
-    <ProjectReference Include="..\NewsAnalizer.Dal.Repositories\NewsAnalizer.Dal.Repositories.Implementation.csproj" />
-    <ProjectReference Include="..\NewsAnalizer.Services.Implementation\NewsAnalizer.Services.Implementation.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Core.DataTransferObjects\NewsAnalyzer.Core.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.DAL.Entities\NewsAnalyzer.DAL.Core.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Dal.Repositories\NewsAnalyzer.Dal.Repositories.Implementation.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Services.Implementation\NewsAnalyzer.Services.Implementation.csproj" />
     <ProjectReference Include="..\NewsAnalyzer.Utils.Html\NewsAnalyzer.Utils.Html.csproj" />
   </ItemGroup>
 

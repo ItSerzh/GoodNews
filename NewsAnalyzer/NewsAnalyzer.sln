@@ -7,21 +7,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer", "NewsAnalyze
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.DAL", "NewsAnalyzer.DAL", "{8B361688-D903-4609-9C5C-D01636E08592}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.DAL.Core", "..\NewsAnalizer.DAL.Entities\NewsAnalizer.DAL.Core.csproj", "{71A450BF-E54A-47D7-B51D-B1AC4D85CA6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.DAL.Core", "..\NewsAnalyzer.DAL.Entities\NewsAnalyzer.DAL.Core.csproj", "{71A450BF-E54A-47D7-B51D-B1AC4D85CA6F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewaAnalizer.Core", "NewaAnalizer.Core", "{163C6AAD-ABD6-4826-A05A-86A3EC635CA2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewaAnalyzer.Core", "NewaAnalyzer.Core", "{163C6AAD-ABD6-4826-A05A-86A3EC635CA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Core.Services.Interfaces", "..\NewsAnalizer.Core.Interfaces.Services\NewsAnalizer.Core.Services.Interfaces.csproj", "{500F508C-6AC6-4EC2-9F9E-DE1944FB0E3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Core.Services.Interfaces", "..\NewsAnalyzer.Core.Interfaces.Services\NewsAnalyzer.Core.Services.Interfaces.csproj", "{500F508C-6AC6-4EC2-9F9E-DE1944FB0E3C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Core.DataTransferObjects", "..\NewsAnalizer.Core.DataTransferObjects\NewsAnalizer.Core.DataTransferObjects.csproj", "{CB89A32B-0D86-4946-8F0B-2BBCFCE85DFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Core.DataTransferObjects", "..\NewsAnalyzer.Core.DataTransferObjects\NewsAnalyzer.Core.DataTransferObjects.csproj", "{CB89A32B-0D86-4946-8F0B-2BBCFCE85DFC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9D430356-1278-4987-A79C-418FA11741D6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.Services.Implementation", "NewsAnalyzer.Services.Implementation", "{9D430356-1278-4987-A79C-418FA11741D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Services.Implementation", "..\NewsAnalizer.Services.Implementation\NewsAnalizer.Services.Implementation.csproj", "{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Services.Implementation", "..\NewsAnalyzer.Services.Implementation\NewsAnalyzer.Services.Implementation.csproj", "{DE8EDFC8-4668-45C0-9E06-E559B5DEBD6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Dal.Repositories.Implementation", "..\NewsAnalizer.Dal.Repositories\NewsAnalizer.Dal.Repositories.Implementation.csproj", "{C726680B-D2B3-42A7-9998-7ACF507AFD03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Dal.Repositories.Implementation", "..\NewsAnalyzer.Dal.Repositories\NewsAnalyzer.Dal.Repositories.Implementation.csproj", "{C726680B-D2B3-42A7-9998-7ACF507AFD03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalizer.Dal.Repositories.Interfaces", "..\NewsAnalizer.Dal.Repositories.Interfaces\NewsAnalizer.Dal.Repositories.Interfaces.csproj", "{483D6127-F8A7-49F5-A60A-2EF164B3B46D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Dal.Repositories.Interfaces", "..\NewsAnalyzer.Dal.Repositories.Interfaces\NewsAnalyzer.Dal.Repositories.Interfaces.csproj", "{483D6127-F8A7-49F5-A60A-2EF164B3B46D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.Util", "NewsAnalyzer.Util", "{A65F520F-7654-4771-BCFF-BC6873B0FC6D}"
 EndProject
@@ -33,9 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.DAL.CQRS", "..
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.Web", "NewsAnalyzer.Web", "{F8CA2EC2-70AE-4E53-BD11-8E53D60AD9F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Web.Services", "..\NewsAnalyzer.Web.Services\NewsAnalyzer.Web.Services.csproj", "{60F982AC-5BD0-4587-B89D-E6FE3A190172}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Web.Services", "..\NewsAnalyzer.Web.Services\NewsAnalyzer.Web.Services.csproj", "{60F982AC-5BD0-4587-B89D-E6FE3A190172}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Util.Text", "..\NewsAnalyzer.Util.Text\NewsAnalyzer.Util.Text.csproj", "{D6AAA793-5313-4178-9549-AB9283F6B0D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Util.Text", "..\NewsAnalyzer.Util.Text\NewsAnalyzer.Util.Text.csproj", "{D6AAA793-5313-4178-9549-AB9283F6B0D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

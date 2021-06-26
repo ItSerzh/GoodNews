@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using NewsAnalizer.Core.DataTransferObjects;
-using NewsAnalizer.DAL.Core;
-using NewsAnalizer.DAL.Core.Entities;
+using NewsAnalyzer.Core.DataTransferObjects;
+using NewsAnalyzer.DAL.Core;
+using NewsAnalyzer.DAL.Core.Entities;
 using NewsAnalyzer.DAL.CQRS.Queries;
 using System;
 using System.Collections.Generic;
@@ -16,10 +16,10 @@ namespace NewsAnalyzer.DAL.CQRS.QueryHandlers
 {
     public class GetNewsByIdQueryHandler : IRequestHandler<GetNewsByIdQuery, NewsDto>
     {
-        private NewsAnalizerContext _dbContext;
+        private NewsAnalyzerContext _dbContext;
         private IMapper _mapper;
 
-        public GetNewsByIdQueryHandler(NewsAnalizerContext dbContext, IMapper mapper)
+        public GetNewsByIdQueryHandler(NewsAnalyzerContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;

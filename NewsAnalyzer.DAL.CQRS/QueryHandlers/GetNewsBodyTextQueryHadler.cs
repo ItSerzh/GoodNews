@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using NewsAnalizer.DAL.Core;
+using NewsAnalyzer.DAL.Core;
 using NewsAnalyzer.DAL.CQRS.Queries;
 using NewsAnalyzer.Helpers;
 using System;
@@ -14,9 +14,9 @@ namespace NewsAnalyzer.DAL.CQRS.QueryHandlers
 {
     public class GetNewsBodyTextQueryHadler : IRequestHandler<GetNewsBodyTextQuery, string>
     {
-        private NewsAnalizerContext _dbContext;
+        private NewsAnalyzerContext _dbContext;
 
-        public GetNewsBodyTextQueryHadler(NewsAnalizerContext dbContext)
+        public GetNewsBodyTextQueryHadler(NewsAnalyzerContext dbContext)
         {
             _dbContext = dbContext;
         }

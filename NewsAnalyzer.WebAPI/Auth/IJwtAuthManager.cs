@@ -1,4 +1,4 @@
-﻿using NewsAnalizer.Core.DataTransferObjects;
+﻿using NewsAnalyzer.Core.DataTransferObjects;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

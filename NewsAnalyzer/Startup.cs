@@ -8,21 +8,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NewsAnalizer.Core.DataTransferObjects;
-using NewsAnalizer.Core.Interfaces.Services;
-using NewsAnalizer.Core.Services.Interfaces;
-using NewsAnalizer.Dal.Repositories.Implementation;
-using NewsAnalizer.Dal.Repositories.Interfaces;
-using NewsAnalizer.DAL.Core;
-using NewsAnalizer.DAL.Core.Entities;
-using NewsAnalizer.Services.Implementation;
-using NewsAnalizer.Services.Implementation.Mapping;
-using RssSourceAnalizer.Dal.Repositories.Implementation;
+using NewsAnalyzer.Core.DataTransferObjects;
+using NewsAnalyzer.Core.Interfaces.Services;
+using NewsAnalyzer.Core.Services.Interfaces;
+using NewsAnalyzer.Dal.Repositories.Implementation;
+using NewsAnalyzer.Dal.Repositories.Interfaces;
+using NewsAnalyzer.DAL.Core;
+using NewsAnalyzer.DAL.Core.Entities;
+using NewsAnalyzer.Services.Implementation;
+using NewsAnalyzer.Services.Implementation.Mapping;
+using RssSourceAnalyzer.Dal.Repositories.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static NewsAnalizer.Services.Implementation.WebPageParse;
+using static NewsAnalyzer.Services.Implementation.WebPageParse;
 
 namespace NewsAnalyzer
 {
@@ -38,7 +38,7 @@ namespace NewsAnalyzer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<NewsAnalizerContext>(opt => 
+            services.AddDbContext<NewsAnalyzerContext>(opt => 
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<INewsRepository, NewsRepository>();

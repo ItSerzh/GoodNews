@@ -1,4 +1,4 @@
-﻿using NewsAnalizer.Core.DataTransferObjects;
+﻿using NewsAnalyzer.Core.DataTransferObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;

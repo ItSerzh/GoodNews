@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using NewsAnalizer.Core.DataTransferObjects;
-using NewsAnalizer.DAL.Core;
+using NewsAnalyzer.Core.DataTransferObjects;
+using NewsAnalyzer.DAL.Core;
 using NewsAnalyzer.DAL.CQRS.Queries;
 using System;
 using System.Collections.Generic;
@@ -15,10 +15,10 @@ namespace NewsAnalyzer.DAL.CQRS.QueryHandlers
 {
     public class GetRssSourceByIdQueryHadler : IRequestHandler<GetRssSourceByIdQuery, List<RssSourceDto>>
     {
-        private NewsAnalizerContext _context;
+        private NewsAnalyzerContext _context;
         private IMapper _mapper;
 
-        public GetRssSourceByIdQueryHadler(NewsAnalizerContext context, IMapper mapper)
+        public GetRssSourceByIdQueryHadler(NewsAnalyzerContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

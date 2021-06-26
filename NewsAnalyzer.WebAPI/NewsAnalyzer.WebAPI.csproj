@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NewsAnalizer.Core.Interfaces.Services\NewsAnalizer.Core.Services.Interfaces.csproj" />
-    <ProjectReference Include="..\NewsAnalizer.Dal.Repositories.Interfaces\NewsAnalizer.Dal.Repositories.Interfaces.csproj" />
-    <ProjectReference Include="..\NewsAnalizer.Dal.Repositories\NewsAnalizer.Dal.Repositories.Implementation.csproj" />
-    <ProjectReference Include="..\NewsAnalizer.Services.Implementation\NewsAnalizer.Services.Implementation.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Core.Interfaces.Services\NewsAnalyzer.Core.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Dal.Repositories.Interfaces\NewsAnalyzer.Dal.Repositories.Interfaces.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Dal.Repositories\NewsAnalyzer.Dal.Repositories.Implementation.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.Services.Implementation\NewsAnalyzer.Services.Implementation.csproj" />
   </ItemGroup>
 
 </Project>

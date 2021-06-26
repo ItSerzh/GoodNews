@@ -8,17 +8,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NewsAnalizer.Core.DataTransferObjects;
-using NewsAnalizer.Core.Interfaces.Services;
-using NewsAnalizer.Core.Services.Interfaces;
-using NewsAnalizer.DAL.Core;
-using NewsAnalizer.DAL.Core.Entities;
-using NewsAnalizer.Services.Implementation;
+using NewsAnalyzer.Core.DataTransferObjects;
+using NewsAnalyzer.Core.Interfaces.Services;
+using NewsAnalyzer.Core.Services.Interfaces;
+using NewsAnalyzer.DAL.Core;
+using NewsAnalyzer.DAL.Core.Entities;
+using NewsAnalyzer.Services.Implementation;
 using NewsAnalyzer.Helpers;
 using NewsAnalyzer.Models.ViewModels;
 using NewsAnalyzer.Utils.Html;
 using Serilog;
-using static NewsAnalizer.Services.Implementation.WebPageParse;
+using static NewsAnalyzer.Services.Implementation.WebPageParse;
 
 namespace NewsAnalyzer.Controllers
 {

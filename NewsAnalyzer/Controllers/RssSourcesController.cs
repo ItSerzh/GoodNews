@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NewsAnalizer.Core.Services.Interfaces;
-using NewsAnalizer.Dal.Repositories.Implementation;
-using NewsAnalizer.DAL.Core;
-using NewsAnalizer.DAL.Core.Entities;
+using NewsAnalyzer.Core.Services.Interfaces;
+using NewsAnalyzer.Dal.Repositories.Implementation;
+using NewsAnalyzer.DAL.Core;
+using NewsAnalyzer.DAL.Core.Entities;
 
 namespace NewsAnalyzer.Controllers
 {
     public class RssSourcesController : Controller
     {
-        //private readonly NewsAnalizerContext _context;
+        //private readonly NewsAnalyzerContext _context;
         private readonly IRssSourceService _rssService;
 
         public RssSourcesController(IRssSourceService rssService)

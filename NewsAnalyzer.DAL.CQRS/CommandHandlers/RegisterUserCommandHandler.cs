@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using NewsAnalizer.DAL.Core;
-using NewsAnalizer.DAL.Core.Entities;
+using NewsAnalyzer.DAL.Core;
+using NewsAnalyzer.DAL.Core.Entities;
 using NewsAnalyzer.DAL.CQRS.Commands;
 using Serilog;
 using System;
@@ -14,9 +14,9 @@ namespace NewsAnalyzer.DAL.CQRS.CommandHandlers
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, bool>
     {
-        private readonly NewsAnalizerContext _dbContext;
+        private readonly NewsAnalyzerContext _dbContext;
 
-        public RegisterUserCommandHandler(NewsAnalizerContext dbContext)
+        public RegisterUserCommandHandler(NewsAnalyzerContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -14,16 +14,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NewsAnalizer.Core.Services.Interfaces;
-using NewsAnalizer.Dal.Repositories.Implementation;
-using NewsAnalizer.Dal.Repositories.Interfaces;
-using NewsAnalizer.DAL.Core;
-using NewsAnalizer.DAL.Core.Entities;
-using NewsAnalizer.Services.Implementation;
-using NewsAnalizer.Services.Implementation.Mapping;
+using NewsAnalyzer.Core.Services.Interfaces;
+using NewsAnalyzer.Dal.Repositories.Implementation;
+using NewsAnalyzer.Dal.Repositories.Interfaces;
+using NewsAnalyzer.DAL.Core;
+using NewsAnalyzer.DAL.Core.Entities;
+using NewsAnalyzer.Services.Implementation;
+using NewsAnalyzer.Services.Implementation.Mapping;
 using NewsAnalyzer.DAL.CQRS.Queries;
 using NewsAnalyzer.WebAPI.Auth;
-using RssSourceAnalizer.Dal.Repositories.Implementation;
+using RssSourceAnalyzer.Dal.Repositories.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +45,7 @@ namespace NewsAnalyzer.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<NewsAnalizerContext>(opt =>
+            services.AddDbContext<NewsAnalyzerContext>(opt =>
                 opt.UseSqlServer(sqlConnectionString));
 
             services.AddTransient<INewsRepository, NewsRepository>();

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using NewsAnalizer.Core.DataTransferObjects;
-using NewsAnalizer.Core.Services.Interfaces;
+using NewsAnalyzer.Core.DataTransferObjects;
+using NewsAnalyzer.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

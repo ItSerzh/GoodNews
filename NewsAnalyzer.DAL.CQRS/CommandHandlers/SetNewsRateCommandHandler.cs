@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using NewsAnalizer.DAL.Core;
+using NewsAnalyzer.DAL.Core;
 using NewsAnalyzer.DAL.CQRS.Commands;
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,9 @@ namespace NewsAnalyzer.DAL.CQRS.CommandHandlers
 {
     public class SetNewsRateCommandHandler : IRequestHandler<SetNewsRateCommand, int>
     {
-        private NewsAnalizerContext _dbContext;
+        private NewsAnalyzerContext _dbContext;
 
-        public SetNewsRateCommandHandler(NewsAnalizerContext dbContext)
+        public SetNewsRateCommandHandler(NewsAnalyzerContext dbContext)
         {
             _dbContext = dbContext;
         }

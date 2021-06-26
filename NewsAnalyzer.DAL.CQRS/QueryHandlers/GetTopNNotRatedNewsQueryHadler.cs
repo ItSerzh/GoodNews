@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using NewsAnalizer.Core.DataTransferObjects;
-using NewsAnalizer.DAL.Core;
+using NewsAnalyzer.Core.DataTransferObjects;
+using NewsAnalyzer.DAL.Core;
 using NewsAnalyzer.DAL.CQRS.Queries;
 using System;
 using System.Collections.Generic;
@@ -15,10 +15,10 @@ namespace NewsAnalyzer.DAL.CQRS.QueryHandlers
 {
     public class GetTopNNotRatedNewsQueryHadler : IRequestHandler<GetTopNNotRatedNewsQuery, List<NewsDto>>
     {
-        private NewsAnalizerContext _dbContext;
+        private NewsAnalyzerContext _dbContext;
         private IMapper _mapper;
 
-        public GetTopNNotRatedNewsQueryHadler(NewsAnalizerContext dbContext, IMapper mapper)
+        public GetTopNNotRatedNewsQueryHadler(NewsAnalyzerContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
