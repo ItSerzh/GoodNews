@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NewsAnalyzer.Models.View;
 
 namespace NewsAnalyzer.Core.Services.Interfaces
 {
@@ -9,7 +10,7 @@ namespace NewsAnalyzer.Core.Services.Interfaces
     {
         Task<IEnumerable<NewsDto>> AggregateNews();
         
-        Task <IEnumerable<NewsWithRssSourceNameDto>> GetNewsBySourceId(Guid? id);
+        Task<NewsListWithPaginationInfo> GetNewsBySourceId(Guid? id, int pageNumber);
         Task<IEnumerable<NewsWithRssSourceNameDto>> GetTopNNewsFromEachSource(int newsCount);
         Task<IEnumerable<NewsDto>> GetNewsFromRssSource(RssSourceDto rssSource);
         Task<NewsDto> GetNewsById(Guid? id);

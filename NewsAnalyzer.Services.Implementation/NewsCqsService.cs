@@ -23,6 +23,7 @@ using NewsAnalyzer.Helpers;
 using Microsoft.Extensions.Configuration;
 using NewsAnalyzer.Util.Text;
 using NewsAnalyzer.DAL.CQRS.Commands;
+using NewsAnalyzer.Models.View;
 
 namespace NewsAnalyzer.Services.Implementation
 {
@@ -36,6 +37,10 @@ namespace NewsAnalyzer.Services.Implementation
             _mediator = mediator;
             _mapper = mapper;
             _configuration = configuration;
+        }
+
+        public NewsCqsService()
+        {
         }
 
         public Task<IEnumerable<NewsDto>> AggregateNews()
@@ -193,6 +198,11 @@ namespace NewsAnalyzer.Services.Implementation
                     //log body is null
                 }
             }
+        }
+
+        public Task<NewsListWithPaginationInfo> GetNewsBySourceId(Guid? id, int pageNumber)
+        {
+            throw new NotImplementedException();
         }
     }
 }

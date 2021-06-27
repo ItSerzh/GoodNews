@@ -15,6 +15,9 @@ using System.Xml;
 using NewsAnalyzer.Utils.Html;
 using Serilog;
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using NewsAnalyzer.Models;
+using NewsAnalyzer.Models.View;
 
 namespace NewsAnalyzer.Services.Implementation
 {
@@ -22,11 +25,13 @@ namespace NewsAnalyzer.Services.Implementation
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public NewsService(IUnitOfWork unitOfWork, IMapper mapper)
+        public NewsService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
         public Task<IEnumerable<NewsDto>> AggregateNews()
@@ -70,16 +75,7 @@ namespace NewsAnalyzer.Services.Implementation
             var entity = await _unitOfWork.News.GetById(id.Value);
             if (entity != null)
             {
-                return new NewsDto
-                {
-                    Id = entity.Id,
-                    Title = entity.Title,
-                    Summary = entity.Summary,
-                    DateCollect = entity.DateCollect,
-                    NewsDate = entity.NewsDate,
-                    Rating = entity.Rating,
-                    RssSourceId = entity.RssSourceId
-                };
+                return _mapper.Map<NewsDto>(entity);
             }
             else
             {
@@ -87,43 +83,41 @@ namespace NewsAnalyzer.Services.Implementation
             }
         }
 
-        public async Task<IEnumerable<NewsWithRssSourceNameDto>> GetNewsBySourceId(Guid? id)
+        public async Task<NewsListWithPaginationInfo> GetNewsBySourceId(Guid? id, int pageNumber)
         {
+            var pageSize = Convert.ToInt32(_configuration["PageInfo:PageSize"]);
             var news = _unitOfWork.News.FindBy(n => true, n => n.RssSource)
-               .Where(n => !id.HasValue || n.RssSourceId.Equals(id.GetValueOrDefault()));
-            
-            var result = await news
-               .Select(n => new NewsWithRssSourceNameDto
-               {
-                   Id = n.Id,
-                   Title = n.Title,
-                   Summary = n.Summary,
-                   DateCollect = n.DateCollect,
-                   NewsDate = n.NewsDate,
-                   Rating = n.Rating,
-                   RssSourceId = n.RssSourceId,
-                   RssSourceName = n.RssSource.Name,
-                   Url = n.Url,
-                   Body = n.Body
-               }).ToListAsync();
-            return result;
+               .Where(n => id == null || n.RssSourceId.Equals(id.GetValueOrDefault()));
+
+            var newsPage = await news
+               .OrderByDescending(n => n.NewsDate)
+               .Skip((pageNumber - 1) * pageSize)
+               .Take(pageSize)
+               .ToListAsync();
+
+            var pageInfo = new PageInfo()
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = news.Count()
+            };
+
+            var newsViewModel = newsPage.Select(n => _mapper.Map<NewsViewModel>(n));
+            var newsListWithPaginationInfo = new NewsListWithPaginationInfo()
+            {
+                NewsPerPage = newsViewModel,
+                PageInfo = pageInfo
+            };
+
+            return newsListWithPaginationInfo;
         }
 
         public async Task<NewsWithRssSourceNameDto> GetNewsWithRssSourceNameById(Guid? id)
         {
             var result = await _unitOfWork.News.FindBy(n => true, n => n.RssSource)
                 .Where(n => n.Id.Equals(id.GetValueOrDefault()))
-                .Select(n => new NewsWithRssSourceNameDto
-                {
-                    Id = n.Id,
-                    Title = n.Title,
-                    Summary = n.Summary,
-                    DateCollect = n.DateCollect,
-                    NewsDate = n.NewsDate,
-                    Rating = n.Rating,
-                    RssSourceId = n.RssSourceId
-                }).FirstOrDefaultAsync();
-            return result;
+                .FirstOrDefaultAsync();
+            return _mapper.Map<NewsWithRssSourceNameDto>(result);
         }
 
         public Task<int> Update(NewsDto newsDto)

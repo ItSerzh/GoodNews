@@ -12,8 +12,13 @@ namespace NewsAnalyzer.Services.Implementation.Mapping
             CreateMap<News, NewsDto>();
             CreateMap<NewsDto, News>();
 
-            CreateMap<NewsWithRssSourceNameDto, NewsViewModel>()
+            CreateMap<News, NewsWithRssSourceNameDto>();
+            CreateMap<NewsWithRssSourceNameDto, News>();
+
+            CreateMap<News, NewsViewModel>()
                 .ForSourceMember(src => src.Body, opt => opt.DoNotValidate());
+
+            CreateMap<NewsWithRssSourceNameDto, NewsViewModel>();
 
             CreateMap<RssSource, RssSourceDto>();
             CreateMap<RssSourceDto, RssSource>();

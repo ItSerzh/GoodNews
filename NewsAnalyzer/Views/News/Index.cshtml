@@ -2,15 +2,26 @@
 @model NewsAnalyzer.Models.View.NewsListWithPaginationInfo
 
 @{
-    ViewData["Title"] = "Index";
+    var srcname = "";
+    if (!string.IsNullOrEmpty(Context.Request.Query["RssSourceId"]))
+    {
+        srcname = Model.NewsPerPage.FirstOrDefault().RssSourceName;
+    }
+    ViewData["Title"] = $"{srcname} News list";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-    <a asp-action="Aggregate">Aggregate</a>
-</p>
+@if (!string.IsNullOrEmpty(Context.Request.Query["RssSourceId"]))
+{
+    <p>
+        <a class="nav-link" asp-area="" asp-controller="RssSources" asp-action="Index">Back to rss sources</a>
+    </p>
+}
+@*<p>
+        <a asp-action="Create">Create New</a>
+        <a asp-action="Aggregate">Aggregate</a>
+    </p>*@
 
 <div class="row justify-content-around">
     @foreach (var item in Model.NewsPerPage)
@@ -20,5 +31,5 @@
 </div>
 <div class="btn-group">
     @Html.CreatePagination(Model.PageInfo, i => Url.Action("Index",
-        new { page = i, sourceId = Model.NewsPerPage.FirstOrDefault()?.RssSourceId }))
+        new { page = i, sourceId = Context.Request.Query["RssSourceId"] }))
 </div>

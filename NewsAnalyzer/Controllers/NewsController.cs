@@ -54,27 +54,9 @@ namespace NewsAnalyzer.Controllers
         [Authorize]
         public async Task<IActionResult> Index(Guid? rssSourceId, int page = 1 )
         {
-            var news = await _newsService.GetNewsBySourceId(rssSourceId);
+            var newsListWithPaginationInfo = await _newsService.GetNewsBySourceId(rssSourceId, page);
             //var news = await _newsService.GetTopNNewsFromEachSource(3);
-
-            //move to service
-            int pageSize = 15;
-            var pageNews = news.Skip(pageSize * (page - 1)).Take(pageSize);
-            var pageInfo = new PageInfo()
-            {
-                PageNumber = page,
-                PageSize = pageSize,
-                TotalItems = news.Count()
-            };
-
-            var newsViewModel = pageNews.Select(n => _mapper.Map<NewsViewModel>(n));
-            var newsListWithPaginationInfo = new NewsListWithPaginationInfo()
-            {
-                NewsPerPage = newsViewModel,
-                PageInfo = pageInfo
-            };
-
-            //return View(news.Select(n => _mapper.Map<NewsViewModel>(n)).ToList());
+            
             return View(newsListWithPaginationInfo);
         }
 
@@ -88,19 +70,7 @@ namespace NewsAnalyzer.Controllers
 
             var news = await _newsService.GetNewsWithRssSourceNameById(id);
 
-            var vewModel = new NewsWithRssSourceNameDto
-            {
-                Id = news.Id,
-                Title = news.Title,
-                Summary = news.Summary,
-                Url = news.Url,
-                NewsDate = news.NewsDate,
-                DateCollect = news.DateCollect,
-                RssSourceId = news.RssSourceId,
-                RssSourceName = news.RssSourceName
-            };
-
-            return View(vewModel);
+            return View(_mapper.Map<NewsViewModel>(news));
         }
 
         public IActionResult Aggregate()

@@ -9,7 +9,8 @@
             @Html.Raw(Model.Summary)
         </div>
         <div class="col-11 bottom-pane">
-            <a class="col-6 left-nav" href="@Model.Url">Read here</a>
+            @*<a class="col-6 left-nav" href="@Model.Url">Read here</a>*@
+            <a class="col-6 left-nav" asp-action="Details" asp-route-id="@Model.Id">Read here</a> |
             <a class="col-6 right-nav" href="@Model.Url">Read on @Model.RssSourceName</a>
         </div>
     </div>
