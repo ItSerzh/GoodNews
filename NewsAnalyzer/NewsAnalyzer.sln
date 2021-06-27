@@ -37,6 +37,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Web.Services",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Util.Text", "..\NewsAnalyzer.Util.Text\NewsAnalyzer.Util.Text.csproj", "{D6AAA793-5313-4178-9549-AB9283F6B0D8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.View", "NewsAnalyzer.View", "{F6549F83-7467-4751-9537-DF2C152E1A7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.View.Models", "..\NewsAnalyzer.View.Models\NewsAnalyzer.View.Models.csproj", "{125FCA85-B524-4887-8224-43BD0A129E63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +95,10 @@ Global
 		{D6AAA793-5313-4178-9549-AB9283F6B0D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6AAA793-5313-4178-9549-AB9283F6B0D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6AAA793-5313-4178-9549-AB9283F6B0D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{125FCA85-B524-4887-8224-43BD0A129E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{125FCA85-B524-4887-8224-43BD0A129E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{125FCA85-B524-4887-8224-43BD0A129E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{125FCA85-B524-4887-8224-43BD0A129E63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +114,7 @@ Global
 		{43CF2E04-5712-40DD-B25F-D5F4135C5728} = {8B361688-D903-4609-9C5C-D01636E08592}
 		{60F982AC-5BD0-4587-B89D-E6FE3A190172} = {F8CA2EC2-70AE-4E53-BD11-8E53D60AD9F4}
 		{D6AAA793-5313-4178-9549-AB9283F6B0D8} = {A65F520F-7654-4771-BCFF-BC6873B0FC6D}
+		{125FCA85-B524-4887-8224-43BD0A129E63} = {F6549F83-7467-4751-9537-DF2C152E1A7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC6EBC54-1FAF-4F2E-9FEC-F9D04C891AE6}

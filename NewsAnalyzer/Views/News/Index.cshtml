@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NewsAnalyzer.Core.DataTransferObjects.NewsWithRssSourceNameDto>
+﻿@model List<NewsAnalyzer.View.Models.NewsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,21 +14,6 @@
 <div class="row justify-content-around">
     @foreach (var item in Model)
     {
-    
-    <div class="col-sm-12 col-md-6 col-lg-4 ">
-        <div class="bordered preview-block">
-            <h5>@Html.Raw(item.Title)</h5>
-            <span class="row justify-content-end"> @item.NewsDate.ToString("dd-MM-yyyy H:m")</span>
-
-            <div class="fit-image">
-                @Html.Raw(item.Summary)
-            </div>
-            <div class="col-11 bottom-pane">
-                <a class="col-6 left-nav" href="@item.Url">Read here</a>
-                <a class="col-6 right-nav" href="@item.Url">Read on @item.RssSourceName</a>
-            </div>
-        </div>
-    </div>
-    
+        @await Html.PartialAsync("ShortPreview", item)
     }
 </div>

@@ -2,6 +2,7 @@
 using NewsAnalyzer.Core.DataTransferObjects;
 using NewsAnalyzer.DAL.Core.Entities;
 using NewsAnalyzer.DAL.CQRS.Commands;
+using NewsAnalyzer.View.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,9 @@ namespace NewsAnalyzer.Services.Implementation.Mapping
         {
             CreateMap<News, NewsDto>();
             CreateMap<NewsDto, News>();
+
+            CreateMap<NewsWithRssSourceNameDto, NewsViewModel>()
+                .ForSourceMember(src => src.Body, opt => opt.DoNotValidate());
 
             CreateMap<RssSource, RssSourceDto>();
             CreateMap<RssSourceDto, RssSource>();

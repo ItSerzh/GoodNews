@@ -36,6 +36,7 @@
     <ProjectReference Include="..\NewsAnalyzer.Dal.Repositories\NewsAnalyzer.Dal.Repositories.Implementation.csproj" />
     <ProjectReference Include="..\NewsAnalyzer.Services.Implementation\NewsAnalyzer.Services.Implementation.csproj" />
     <ProjectReference Include="..\NewsAnalyzer.Utils.Html\NewsAnalyzer.Utils.Html.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.View.Models\NewsAnalyzer.View.Models.csproj" />
   </ItemGroup>
 
 </Project>

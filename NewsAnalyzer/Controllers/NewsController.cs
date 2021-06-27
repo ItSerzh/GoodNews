@@ -19,6 +19,8 @@ using NewsAnalyzer.Models.ViewModels;
 using NewsAnalyzer.Utils.Html;
 using Serilog;
 using static NewsAnalyzer.Services.Implementation.WebPageParse;
+using AutoMapper;
+using NewsAnalyzer.View.Models;
 
 namespace NewsAnalyzer.Controllers
 {
@@ -31,10 +33,11 @@ namespace NewsAnalyzer.Controllers
         private readonly OnlinerParser _onlinerParser;
         private readonly ForPdaParser _4PdaParser;
         private readonly WylsaParser _wylsaParser;
+        private readonly IMapper _mapper;
 
         public NewsController(INewsService newsService, IRssSourceService rssSourceService,
             IgromaniaParser igromaniaParser, ShazooParser shazooParser,
-            OnlinerParser onlinerParser, ForPdaParser forPdaParser, WylsaParser wylsaParser)
+            OnlinerParser onlinerParser, ForPdaParser forPdaParser, WylsaParser wylsaParser, IMapper mapper)
         {
             _newsService = newsService;
             _rssSourceService = rssSourceService;
@@ -43,16 +46,16 @@ namespace NewsAnalyzer.Controllers
             _onlinerParser = onlinerParser;
             _4PdaParser = forPdaParser;
             _wylsaParser = wylsaParser;
+            _mapper = mapper;
         }
 
         // GET: News
         [Authorize]
         public async Task<IActionResult> Index(Guid? rssSourceId)
         {
-
             //var news = await _newsService.GetNewsBySourceId(rssSourceId);
             var news = await _newsService.GetTopNNewsFromEachSource(3);
-            return View(news);
+            return View(news.Select(n => _mapper.Map<NewsViewModel>(n)).ToList());
         }
 
         // GET: News/Details/5
