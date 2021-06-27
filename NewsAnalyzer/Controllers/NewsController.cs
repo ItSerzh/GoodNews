@@ -52,7 +52,7 @@ namespace NewsAnalyzer.Controllers
 
         // GET: News
         [Authorize]
-        public async Task<IActionResult> Index(Guid? rssSourceId, int page )
+        public async Task<IActionResult> Index(Guid? rssSourceId, int page = 1 )
         {
             var news = await _newsService.GetNewsBySourceId(rssSourceId);
             //var news = await _newsService.GetTopNNewsFromEachSource(3);
