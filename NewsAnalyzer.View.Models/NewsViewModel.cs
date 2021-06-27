@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewsAnalyzer.View.Models
+namespace NewsAnalyzer.Models.View
 {
     public class NewsViewModel
     {

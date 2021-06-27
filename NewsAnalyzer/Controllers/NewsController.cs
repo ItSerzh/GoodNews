@@ -20,7 +20,8 @@ using NewsAnalyzer.Utils.Html;
 using Serilog;
 using static NewsAnalyzer.Services.Implementation.WebPageParse;
 using AutoMapper;
-using NewsAnalyzer.View.Models;
+using NewsAnalyzer.Models;
+using NewsAnalyzer.Models.View;
 
 namespace NewsAnalyzer.Controllers
 {
@@ -51,11 +52,30 @@ namespace NewsAnalyzer.Controllers
 
         // GET: News
         [Authorize]
-        public async Task<IActionResult> Index(Guid? rssSourceId)
+        public async Task<IActionResult> Index(Guid? rssSourceId, int page )
         {
-            //var news = await _newsService.GetNewsBySourceId(rssSourceId);
-            var news = await _newsService.GetTopNNewsFromEachSource(3);
-            return View(news.Select(n => _mapper.Map<NewsViewModel>(n)).ToList());
+            var news = await _newsService.GetNewsBySourceId(rssSourceId);
+            //var news = await _newsService.GetTopNNewsFromEachSource(3);
+
+            //move to service
+            int pageSize = 15;
+            var pageNews = news.Skip(pageSize * (page - 1)).Take(pageSize);
+            var pageInfo = new PageInfo()
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = news.Count()
+            };
+
+            var newsViewModel = pageNews.Select(n => _mapper.Map<NewsViewModel>(n));
+            var newsListWithPaginationInfo = new NewsListWithPaginationInfo()
+            {
+                NewsPerPage = newsViewModel,
+                PageInfo = pageInfo
+            };
+
+            //return View(news.Select(n => _mapper.Map<NewsViewModel>(n)).ToList());
+            return View(newsListWithPaginationInfo);
         }
 
         // GET: News/Details/5

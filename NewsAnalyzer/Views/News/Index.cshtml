@@ -1,4 +1,5 @@
-﻿@model List<NewsAnalyzer.View.Models.NewsViewModel>
+﻿@using NewsAnalyzer.HtmlHelpers
+@model NewsAnalyzer.Models.View.NewsListWithPaginationInfo
 
 @{
     ViewData["Title"] = "Index";
@@ -12,8 +13,12 @@
 </p>
 
 <div class="row justify-content-around">
-    @foreach (var item in Model)
+    @foreach (var item in Model.NewsPerPage)
     {
         @await Html.PartialAsync("ShortPreview", item)
     }
+</div>
+<div class="btn-group">
+    @Html.CreatePagination(Model.PageInfo, i => Url.Action("Index",
+        new { page = i, sourceId = Model.NewsPerPage.FirstOrDefault()?.RssSourceId }))
 </div>

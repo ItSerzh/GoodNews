@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using NewsAnalyzer.Core.DataTransferObjects;
 using NewsAnalyzer.DAL.Core.Entities;
-using NewsAnalyzer.DAL.CQRS.Commands;
-using NewsAnalyzer.View.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using NewsAnalyzer.Models.View;
 
 namespace NewsAnalyzer.Services.Implementation.Mapping
 {

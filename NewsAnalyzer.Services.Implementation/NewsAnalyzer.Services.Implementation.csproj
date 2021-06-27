@@ -21,7 +21,7 @@
     <ProjectReference Include="..\NewsAnalyzer.DAL.CQRS\NewsAnalyzer.DAL.CQRS.csproj" />
     <ProjectReference Include="..\NewsAnalyzer.Util.Text\NewsAnalyzer.Util.Text.csproj" />
     <ProjectReference Include="..\NewsAnalyzer.Utils.Html\NewsAnalyzer.Utils.Html.csproj" />
-    <ProjectReference Include="..\NewsAnalyzer.View.Models\NewsAnalyzer.View.Models.csproj" />
+    <ProjectReference Include="..\NewsAnalyzer.View.Models\NewsAnalyzer.Models.View.csproj" />
     <ProjectReference Include="..\NewsAnalyzer.Web.Services\NewsAnalyzer.Web.Services.csproj" />
   </ItemGroup>
 
