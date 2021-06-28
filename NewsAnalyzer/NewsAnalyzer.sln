@@ -39,9 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Util.Text", ".
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewsAnalyzer.Models", "NewsAnalyzer.Models", "{F6549F83-7467-4751-9537-DF2C152E1A7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Models.View", "..\NewsAnalyzer.View.Models\NewsAnalyzer.Models.View.csproj", "{125FCA85-B524-4887-8224-43BD0A129E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Models.View", "..\NewsAnalyzer.View.Models\NewsAnalyzer.Models.View.csproj", "{125FCA85-B524-4887-8224-43BD0A129E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Models", "..\NewsAnalyzer.Model\NewsAnalyzer.Models.csproj", "{0F3B5251-DF9D-4D8B-9E45-566C57F8AA0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Models", "..\NewsAnalyzer.Model\NewsAnalyzer.Models.csproj", "{0F3B5251-DF9D-4D8B-9E45-566C57F8AA0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

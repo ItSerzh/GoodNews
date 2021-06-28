@@ -115,3 +115,11 @@ body {
         .preview-block .bottom-pane a.right-nav {
             right: 0px;
         }
+
+#comments-container {
+    margin-top: 20px
+}
+
+.write-comment-btn {
+    margin-top: 10px
+}

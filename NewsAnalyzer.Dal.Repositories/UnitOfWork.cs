@@ -12,21 +12,24 @@ namespace NewsAnalyzer.Dal.Repositories.Implementation
     {
         private readonly NewsAnalyzerContext _db;
         private readonly INewsRepository _newsRepository;
+        private readonly IRepository<Comment> _commentRepository;
         private readonly IRepository<RssSource> _rssRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
 
         public UnitOfWork(NewsAnalyzerContext db, INewsRepository newsRepository, IRepository<RssSource> rssRepository,
-            IRepository<User> userRepository, IRepository<Role> roleRepository)
+            IRepository<User> userRepository, IRepository<Role> roleRepository, IRepository<Comment> commentRepository)
         {
             _db = db;
             _newsRepository = newsRepository;
             _rssRepository = rssRepository;
             _userRepository = userRepository;
             _roleRepository = roleRepository;
+            _commentRepository = commentRepository;
         }
 
         public INewsRepository News => _newsRepository;
+        public IRepository<Comment> Comment => _commentRepository;
         public IRepository<RssSource> RssSource => _rssRepository;
         public IRepository<User> User => _userRepository;
         public IRepository<Role> Role => _roleRepository;

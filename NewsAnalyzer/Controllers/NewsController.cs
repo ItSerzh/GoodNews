@@ -28,6 +28,7 @@ namespace NewsAnalyzer.Controllers
     public class NewsController : Controller
     {
         private readonly INewsService _newsService;
+        private readonly ICommentService _commentService;
         private readonly IRssSourceService _rssSourceService;
         private readonly IgromaniaParser _igromaniaParser;
         private readonly ShazooParser _shazooParser;
@@ -38,7 +39,8 @@ namespace NewsAnalyzer.Controllers
 
         public NewsController(INewsService newsService, IRssSourceService rssSourceService,
             IgromaniaParser igromaniaParser, ShazooParser shazooParser,
-            OnlinerParser onlinerParser, ForPdaParser forPdaParser, WylsaParser wylsaParser, IMapper mapper)
+            OnlinerParser onlinerParser, ForPdaParser forPdaParser, WylsaParser wylsaParser,
+            IMapper mapper, ICommentService commentService)
         {
             _newsService = newsService;
             _rssSourceService = rssSourceService;
@@ -48,10 +50,11 @@ namespace NewsAnalyzer.Controllers
             _4PdaParser = forPdaParser;
             _wylsaParser = wylsaParser;
             _mapper = mapper;
+            _commentService = commentService;
         }
 
         // GET: News
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Index(Guid? rssSourceId, int page = 1 )
         {
             var newsListWithPaginationInfo = await _newsService.GetNewsBySourceId(rssSourceId, page);
@@ -68,11 +71,23 @@ namespace NewsAnalyzer.Controllers
                 return NotFound();
             }
 
-            var news = await _newsService.GetNewsWithRssSourceNameById(id);
+            var newsItem = await _newsService.GetNewsWithRssSourceNameById(id);
 
-            return View(_mapper.Map<NewsViewModel>(news));
+            if(newsItem == null)
+            { 
+                return NotFound(); 
+            }
+
+            var comments = await _commentService.GetCommentsByNewsId(id.Value);
+
+            var viewModel = _mapper.Map<NewsWithCommentsViewModel>(newsItem);
+            viewModel.Comments = comments;
+            
+            
+            return View(viewModel);
         }
 
+        [Authorize(Roles ="Admin")]
         public IActionResult Aggregate()
         {
             return View();

@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model NewsAnalyzer.Models.View.CommentsListViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="container comments-block">
+    <h3>Comments</h3>
+    <div id="comments-container" class="row">
+
+        @foreach (var comment in Model.Comments)
+        {
+            @await Html.PartialAsync("Comment", comment)
+        }
+
+    </div>
+    <hr />
+    @if (User.Identity.IsAuthenticated)
+    {
+        await Html.PartialAsync("CreateCommentPartial");
+    }
+    else
+    {
+        <h3>Register for leave comments</h3>
+    }
+</div>

@@ -42,11 +42,13 @@ namespace NewsAnalyzer
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<INewsRepository, NewsRepository>();
+            services.AddTransient<IRepository<Comment>, CommentRepository>();
             services.AddTransient<IRepository<RssSource>, RssSourceRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IRepository<Role>, RoleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IRssSourceService, RssSourceService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();

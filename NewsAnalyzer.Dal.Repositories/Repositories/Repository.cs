@@ -44,9 +44,9 @@ namespace NewsAnalyzer.Dal.Repositories.Implementation
             return Table;
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
-             Db.Add(entity);
+             await Table.AddAsync(entity);
         }
 
         public async Task AddRange(IEnumerable<T> T)

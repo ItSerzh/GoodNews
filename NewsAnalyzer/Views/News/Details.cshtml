@@ -1,4 +1,4 @@
-﻿@model NewsAnalyzer.Models.View.NewsViewModel
+﻿@model NewsAnalyzer.Models.View.NewsWithCommentsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -14,3 +14,19 @@
 </div><div>
     <a asp-action="Index">Back to List</a>
 </div>
+<div class="row">
+    <button id="comments-toggle" onclick="toggleComments('@Model.Id')" class="btn btn-primary col-sm-12">Display comments</button>
+    <div id="comments-container" class="col-12" style="display:none">
+        test
+        @foreach (var comment in Model.Comments)
+        {
+            @Html.PartialAsync("CommentPartial", comment);
+        }
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/comments.js"></script>
+    @*<script src="~/js/comments-jquery.js"></script>*@
+}
