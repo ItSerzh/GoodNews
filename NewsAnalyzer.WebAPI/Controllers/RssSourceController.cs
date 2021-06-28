@@ -10,10 +10,10 @@ namespace NewsAnalyzer.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RssSourceSontroller : ControllerBase
+    public class RssSourceController : ControllerBase
     {
         private readonly IRssSourceService _rssSourceService;
-        public RssSourceSontroller(IRssSourceService rssSourceService)
+        public RssSourceController(IRssSourceService rssSourceService)
         {
             _rssSourceService = rssSourceService;
         }

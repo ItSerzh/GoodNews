@@ -187,16 +187,20 @@ namespace NewsAnalyzer.Services.Implementation
                     });
                     var rate = lemmaWithRate.Where(r => r.Rate != null)
                     .Average(r => r.Rate);
-                    rate = rate ?? 0;
-                    //todo add logs here
 
+                    if (rate == null)
+                    {
+                        rate = 0;
+                        Log.Debug($"News with id {news.Id} rate is null !!!");
+                    }
                     var setNewsRateCommand = new SetNewsRateCommand() { Id = news.Id, Rating = (float)rate.Value };
                     var updatedCount = await _mediator.Send(setNewsRateCommand);
-                    //log updated count
+
+                    Log.Information($"Set rate for {topNotRatedNews.Count()} news");
                 }
                 else
                 {
-                    //log body is null
+                    Log.Error($"News with id {news.Id} has empty body");
                 }
             }
         }

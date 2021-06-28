@@ -40,12 +40,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Index">News</a>
                         </li>
-                        @if (User.IsInRole("Admin"))
+                        @*@if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
-                        }
+                        }*@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item" style="background-color: #f1fbe7;">
