@@ -18,16 +18,18 @@
         <a class="nav-link" asp-area="" asp-controller="RssSources" asp-action="Index">Back to rss sources</a>
     </p>
 }
-@*<p>
-        <a asp-action="Create">Create New</a>
+@if (User.IsInRole("Admin"))
+{
+    <p>
         <a asp-action="Aggregate">Aggregate</a>
-    </p>*@
+    </p>
+}
 
 <div class="row justify-content-around">
     @foreach (var item in Model.NewsPerPage)
-    {
-        @await Html.PartialAsync("ShortPreview", item)
-    }
+                    {
+                        @await Html.PartialAsync("ShortPreview", item)
+                    }
 </div>
 <div class="btn-group">
     @Html.CreatePagination(Model.PageInfo, i => Url.Action("Index",

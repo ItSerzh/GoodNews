@@ -104,10 +104,10 @@ namespace NewsAnalyzer.Controllers
                 new ClaimsPrincipal(identity));
         }
 
-        public async Task SignOut()
+        public async Task<IActionResult> LogOff()
         {
-            HttpContext.SignOutAsync();
-            RedirectToAction("Index", "Home");
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
