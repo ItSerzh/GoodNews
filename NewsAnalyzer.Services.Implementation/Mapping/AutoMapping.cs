@@ -22,6 +22,8 @@ namespace NewsAnalyzer.Services.Implementation.Mapping
             CreateMap<News, NewsViewModel>()
                 .ForSourceMember(src => src.Body, opt => opt.DoNotValidate());
 
+            CreateMap<NewsDto, NewsViewModel>();
+
             CreateMap<NewsWithRssSourceNameDto, NewsViewModel>();
             CreateMap<NewsWithRssSourceNameDto, NewsWithCommentsViewModel>();
 

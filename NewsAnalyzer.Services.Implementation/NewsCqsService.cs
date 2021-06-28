@@ -24,6 +24,7 @@ using Microsoft.Extensions.Configuration;
 using NewsAnalyzer.Util.Text;
 using NewsAnalyzer.DAL.CQRS.Commands;
 using NewsAnalyzer.Models.View;
+using NewsAnalyzer.Models;
 
 namespace NewsAnalyzer.Services.Implementation
 {
@@ -200,9 +201,33 @@ namespace NewsAnalyzer.Services.Implementation
             }
         }
 
-        public Task<NewsListWithPaginationInfo> GetNewsBySourceId(Guid? id, int pageNumber)
+        public async Task<NewsListWithPaginationInfo> GetNewsBySourceId(Guid? id, int pageNumber)
         {
-            throw new NotImplementedException();
+            var pageSize = Convert.ToInt32(_configuration["PageInfo:PageSize"]);
+            var query = new GetNewsListQuery();
+            var news = await _mediator.Send(query);
+
+            var newsPage = news
+               .OrderByDescending(n => n.NewsDate)
+               .Skip((pageNumber - 1) * pageSize)
+               .Take(pageSize)
+               .ToList();
+
+            var pageInfo = new PageInfo()
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = news.Count()
+            };
+
+            var newsViewModel = newsPage.Select(n => _mapper.Map<NewsViewModel>(n));
+            var newsListWithPaginationInfo = new NewsListWithPaginationInfo()
+            {
+                NewsPerPage = newsViewModel,
+                PageInfo = pageInfo
+            };
+
+            return newsListWithPaginationInfo;
         }
     }
 }

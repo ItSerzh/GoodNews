@@ -48,8 +48,5 @@ namespace NewsAnalyzer.Services.Implementation
 
             return newRefreshToken;
         }
-
-        
-
     }
 }

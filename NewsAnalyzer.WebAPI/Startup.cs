@@ -49,11 +49,13 @@ namespace NewsAnalyzer.WebAPI
                 opt.UseSqlServer(sqlConnectionString));
 
             services.AddTransient<INewsRepository, NewsRepository>();
+            services.AddTransient<IRepository<Comment>, CommentRepository>();
             services.AddTransient<IRepository<RssSource>, RssSourceRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IRepository<Role>, RoleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INewsService, NewsCqsService>();
+            services.AddScoped<ICommentService, CommentCqsService>();
             services.AddScoped<IRssSourceService, RssSourceCqsService>();
             services.AddScoped<IUserService, UserCqsService>();
             services.AddScoped<IRoleService, RoleService>();

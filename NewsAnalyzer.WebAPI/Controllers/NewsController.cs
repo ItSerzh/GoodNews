@@ -11,7 +11,7 @@ namespace NewsAnalyzer.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class NewsController : ControllerBase
     {
         private readonly INewsService _newsService;
@@ -28,9 +28,9 @@ namespace NewsAnalyzer.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(Guid? sourceId, int? pageNumber = 1)
         {
-            var news = await _newsService.GetNewsBySourceId(null);
+            var news = await _newsService.GetNewsBySourceId(sourceId, pageNumber.Value);
             return Ok(news);
         }
     }

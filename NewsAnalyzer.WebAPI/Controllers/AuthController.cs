@@ -37,7 +37,6 @@ namespace NewsAnalyzer.WebAPI.Controllers
         [Route("Register")]
         public async Task<IActionResult> Rgister([FromBody] RegisterRequest request)
         {
-            //ToDo validate request
             try
             {
                 JwtAuthResult jwtAuthResult = null;

@@ -1,0 +1,15 @@
+﻿using MediatR;
+using NewsAnalyzer.Core.DataTransferObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NewsAnalyzer.DAL.CQRS.Queries
+{
+    public class GetCommentsByNewsIdQuery : IRequest<List<CommentDto>>
+    {
+        public Guid Id { get; set; }
+    }
+}

@@ -28,7 +28,7 @@ namespace NewsAnalyzer.WebAPI.Auth
             var jwtToken = new JwtSecurityToken("NewsAnalyzer",
                 "NewsAnalyzer",
                 GenerateClaims(user),
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
                         _configuration["Jwt:Key"])), SecurityAlgorithms.HmacSha256Signature));
